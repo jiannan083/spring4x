@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd  
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+        http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd  
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd  
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    
+    <!-- 支持@RequestMapping -->
+	<!-- 支持@ResponseBody;将数据自动转成JSON格式字符串给客户端JavaScript返回 -->    
+	<mvc:annotation-driven>
+		<mvc:message-converters register-defaults="true">
+			<!-- 将StringHttpMessageConverter的默认编码设为UTF-8 -->
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+		    	<constructor-arg value="UTF-8" />
+			</bean>
+  		</mvc:message-converters>
+	</mvc:annotation-driven>
+	
+	<!-- 无需经过Controller的url path处理直接映射到相应view -->
+	<!-- <mvc:view-controller path="/" view-name="redirect:/"/> -->
+	
+	<!-- 定义JSP文件的位置 --> 
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	
+	<!-- 前提：将DispatcherServlet的请求映射配置为"/" -->		
+	<!-- 容器默认的DefaultServletHandler处理 所有静态内容与无RequestMapping处理的URL -->		
+	<!-- 静态资源文件（js css htm html jpg jepg png bmp） -->		
+	<!-- 方法二：<mvc:resources /> -->		
+	<mvc:default-servlet-handler/>
+	
+	<!-- 启用spring mvc 注解 -->
+	<context:annotation-config />
+	
+	<!-- 组件扫描 -->
+	<!-- 这个配置，容器实例化时会自动扫描com.jiannan包及其子包下的所有组件类 -->
+	<!-- 指定扫描路径后，并不是该路径下的所有组件类都扫描到Spring容器中，
+	         只有在组件类定义前面加上注解标记时，才会扫描到Spring容器中 -->
+	<!-- 支持以下注解标记 -->
+	<!-- @Component通用注解 -->       
+	<!-- @Repository持久化层组件注解，DAO层 -->       
+	<!-- @Service业务层注解 -->       
+	<!-- @Controller控制层注解 -->
+	<context:component-scan base-package="com.happyfi" />
+	
+	<!-- 任务注解 -->
+	<!-- 1.异步调用注解@Async -->
+	<!-- 2.定时任务注解@Scheduled -->
+	<task:annotation-driven />
+	<!-- or 设置pool-size eg -->
+	<!-- <task:annotation-driven executor="annotationExecutor" scheduler="annotationScheduler"/> -->
+	<!-- 支持 @Async 注解 -->
+	<!-- <task:executor id="annotationExecutor" pool-size="20"/> -->
+	<!-- 支持 @Scheduled 注解 -->
+	<!-- <task:scheduler id="annotationScheduler" pool-size="30"/> -->
+	
+	<!-- 引入数据库属性文件+配置数据源 -->
+	<!-- <context:property-placeholder location="classpath:jdbc.properties" ignore-unresolvable="true"/>
+	<bean name="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
+		<property name="url" value="${driverUrl}" />
+		<property name="username" value="${username}" />
+		<property name="password" value="${password}" />
+		<property name="initialSize" value="1" />
+		<property name="maxActive" value="150" />
+		<property name="minIdle" value="1" />
+		<property name="maxWait" value="60000" />
+		<property name="validationQuery" value="SELECT 1" />
+		<property name="testOnBorrow" value="true" />
+		<property name="testOnReturn" value="true" />
+		<property name="testWhileIdle" value="true" />
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		<property name="removeAbandoned" value="true" />
+		<property name="removeAbandonedTimeout" value="1800" />
+		<property name="logAbandoned" value="true" />
+		<property name="filters" value="mergeStat" />
+	</bean> -->
+	
+	<!-- 配置JNDI数据源 在服务器配置相关参数-->
+	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/wb"/>
+	<!-- or -->
+	<!-- <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean"> 
+			<property  name="jndiName" value="java:comp/env/jdbc/wb" />
+  	</bean> -->
+  	
+	<!-- myBatis文件 -->
+	<bean id="SessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath*:sqlMapperXml/*Mapper.xml" />
+	</bean>
+	
+	<!-- mapper scanner -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.happyfi.mapper" />
+	</bean>
+	
+	<!-- 事物管理 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+    <!-- 如果没有它，就会忽略 @Transactional 注释，导致代码不会使用任何事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!-- 启用@AspectJ风格的切面声明,类前面加上@Aspect即声明本类为一个切面  -->
+	<aop:aspectj-autoproxy  proxy-target-class="true" />
+	
+	<!-- 引入其他的配置文件 -->
+	<import resource="applicationContext-a.xml"/>
+	<import resource="applicationContext-b.xml"/>
+</beans>  
