@@ -24,9 +24,9 @@
 	</dependencyManagement>
 	<dependencies>
 		<!-- spring -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework</groupId>
-			<!-- Core utilities, used by many other Spring modules -->
+			Core utilities, used by many other Spring modules
 			<artifactId>spring-core</artifactId>
 			<exclusions>
 				<exclusion>
@@ -42,62 +42,55 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-		</dependency>
-		<dependency>
+		</dependency> -->
+		<!-- <dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
-		</dependency>
-		<dependency>
+		</dependency> -->
+		<!-- <dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-expression</artifactId>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<!-- REST Web Services and model-view-controller implementation for web 
-				applications -->
-			<artifactId>spring-webmvc</artifactId>
+			<artifactId>spring-webmvc</artifactId><!-- REST Web Services and model-view-controller implementation for web applications -->
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework</groupId>
-			<!-- JDBC support package, including DataSource setup and JDBC access 
-				support -->
+			JDBC support package, including DataSource setup and JDBC access 
+				support
 			<artifactId>spring-jdbc</artifactId>
-		</dependency>
-		<dependency>
+		</dependency> -->
+		<!-- <dependency>
 			<groupId>org.springframework</groupId>
-			<!-- Transaction infrastructure, including DAO support and JCA integration -->
+			Transaction infrastructure, including DAO support and JCA integration
 			<artifactId>spring-tx</artifactId>
-		</dependency>
-		<dependency>
+		</dependency> -->
+		<!-- <dependency>
 			<groupId>org.springframework</groupId>
-			<!-- Proxy-based AOP support -->
+			Proxy-based AOP support
 			<artifactId>spring-aop</artifactId>
+		</dependency> -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId><!-- AspectJ based aspects -->
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<!-- AspectJ based aspects -->
-			<artifactId>spring-aspects</artifactId>
+			<artifactId>spring-orm</artifactId><!-- Object/Relational Mapping, including JPA and Hibernate support -->
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework</groupId>
-			<!-- Object/Relational Mapping, including JPA and Hibernate support -->
-			<artifactId>spring-orm</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<!-- Support for messaging architectures and protocols -->
+			Support for messaging architectures and protocols
 			<artifactId>spring-messaging</artifactId>
+		</dependency> -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jms</artifactId><!-- JMS support package, including helper classes to send and receive JMS messages -->
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<!-- JMS support package, including helper classes to send and receive 
-				JMS messages -->
-			<artifactId>spring-jms</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<!-- Support for unit testing and integration testing Spring components -->
-			<artifactId>spring-test</artifactId>
+			<artifactId>spring-test</artifactId><!-- Support for unit testing and integration testing Spring components -->
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -113,25 +106,25 @@
 			<version>3.1.0</version>
 		</dependency>
 		<!-- slf4j -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>jcl-over-slf4j</artifactId>
-			<version>1.5.8</version>
-		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.5.8</version>
-		</dependency>
+			<version>1.7.5</version>
+		</dependency> -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.5.8</version>
+			<artifactId>log4j-over-slf4j</artifactId>
+			<version>1.7.5</version>
 		</dependency>
 		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.14</version>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.0.13</version>
+		</dependency>
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.6.1</version>
 		</dependency>
 		<!-- mybatis -->
 		<dependency>
