@@ -22,19 +22,8 @@
         </property>
     </bean>
     
-    <!-- 启用spring mvc 注解 -->
-	<context:annotation-config />
-	
-	<!-- 组件扫描 -->
-	<!-- 这个配置，容器实例化时会自动扫描com.jiannan包及其子包下的所有组件类 -->
-	<!-- 指定扫描路径后，并不是该路径下的所有组件类都扫描到Spring容器中，
-	         只有在组件类定义前面加上注解标记时，才会扫描到Spring容器中 -->
-	<!-- 支持以下注解标记 -->
-	<!-- @Component通用注解 -->       
-	<!-- @Repository持久化层组件注解，DAO层 -->       
-	<!-- @Service业务层注解 -->       
-	<!-- @Controller控制层注解 -->
+    <!-- 扫描注册使用注解的bean -->
 	<context:component-scan base-package="cn.wangjiannan" />
-	    
+	
 	<import resource="spring/spring-mybatis.xml"/>
 </beans>  
