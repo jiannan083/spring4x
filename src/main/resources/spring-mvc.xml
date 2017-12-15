@@ -12,24 +12,8 @@
     http://www.springframework.org/schema/mvc/spring-mvc.xsd
     http://www.springframework.org/schema/aop
     http://www.springframework.org/schema/aop/spring-aop.xsd">
-    
-    
-    <!-- 读取配置文件，在XML文件中用${key}替换指定的properties文件中的值 -->
-	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <list>
-                <value>classpath:*.properties</value>
-            </list>
-        </property>
-        <property name="fileEncoding">
-        	<value>UTF-8</value>
-        </property>
-    </bean>
-    
-    <!-- 扫描注册使用注解的bean -->
-	<context:component-scan base-package="cn.wangjiannan" />
 	
-	<import resource="spring/spring-mybatis.xml"/>
+	<context:component-scan base-package="cn.wangjiannan" />
     <!-- 支持@RequestMapping -->
 	<!-- 支持@ResponseBody;将数据自动转成JSON格式字符串给客户端JavaScript返回 -->    
 	<mvc:annotation-driven>
