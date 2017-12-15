@@ -35,5 +35,5 @@
 	<!-- 容器默认的DefaultServletHandler处理 所有静态内容与无RequestMapping处理的URL -->		
 	<!-- 静态资源文件（js css htm html jpg jepg png bmp） -->		
 	<!-- 方法二：<mvc:resources /> -->		
-	<!-- <mvc:default-servlet-handler/> -->
+	<mvc:default-servlet-handler/>
 </beans>  

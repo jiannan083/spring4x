@@ -22,9 +22,8 @@
         </property>
     </bean>
     
-    <!-- <context:annotation-config/> -->
     <!-- 扫描注册使用注解的bean -->
-	<!-- <context:component-scan base-package="cn.wangjiannan" /> -->
+	<!-- <context:component-scan base-package="cn.wangjiannan.service" /> -->
 	
-	<import resource="spring/spring-mybatis.xml"/>
+	<import resource="xml/spring-mybatis.xml"/>
 </beans>  
