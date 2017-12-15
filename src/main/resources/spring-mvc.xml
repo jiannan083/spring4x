@@ -13,6 +13,23 @@
     http://www.springframework.org/schema/aop
     http://www.springframework.org/schema/aop/spring-aop.xsd">
     
+    
+    <!-- 读取配置文件，在XML文件中用${key}替换指定的properties文件中的值 -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:*.properties</value>
+            </list>
+        </property>
+        <property name="fileEncoding">
+        	<value>UTF-8</value>
+        </property>
+    </bean>
+    
+    <!-- 扫描注册使用注解的bean -->
+	<context:component-scan base-package="cn.wangjiannan" />
+	
+	<import resource="spring/spring-mybatis.xml"/>
     <!-- 支持@RequestMapping -->
 	<!-- 支持@ResponseBody;将数据自动转成JSON格式字符串给客户端JavaScript返回 -->    
 	<mvc:annotation-driven>
@@ -34,5 +51,5 @@
 	<!-- 容器默认的DefaultServletHandler处理 所有静态内容与无RequestMapping处理的URL -->		
 	<!-- 静态资源文件（js css htm html jpg jepg png bmp） -->		
 	<!-- 方法二：<mvc:resources /> -->		
-	<mvc:default-servlet-handler/>
+	<!-- <mvc:default-servlet-handler/> -->
 </beans>  

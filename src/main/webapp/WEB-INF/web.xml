@@ -9,14 +9,14 @@
 	<display-name>spring4x</display-name>
 	
 	<!-- 针对整个项目,声明应用范围内的初始化参数 -->
-	<context-param>
+	<!-- <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:spring-config.xml</param-value>
-    </context-param>
+    </context-param> -->
     <!-- Spring上下文监听器,加载context-param中配置文件 -->
-    <listener>
+    <!-- <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener>
+    </listener> -->
     
     <!-- 用spring Encoding,解决乱码问题 -->
     <filter>
@@ -52,14 +52,14 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
-	<error-page>
+	<!-- <error-page>
         <error-code>404</error-code>
         <location>/WEB-INF/views/error/404.jsp</location>
     </error-page>
     <error-page>
         <error-code>500</error-code>
         <location>/WEB-INF/views/error/500.jsp</location>
-    </error-page>
+    </error-page> -->
     
     <!-- 防止内泄露 -->
     <listener>
