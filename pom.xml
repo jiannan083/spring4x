@@ -14,7 +14,7 @@
         <servlet.version>3.0.1</servlet.version>
         <log4j2.version>2.8.2</log4j2.version>
         <spring.version>4.3.13.RELEASE</spring.version>
-        <mybaitsplus.version>2.1.7</mybaitsplus.version>
+        <mybaitsplus.version>2.0.8</mybaitsplus.version>
         <mysql.version>6.0.3</mysql.version>
         <druid.version>1.0.29</druid.version>
         <shiro.version>1.3.2</shiro.version>
@@ -83,20 +83,20 @@
         </dependency>
 		<!-- slf4j -->
 		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>slf4j-log4j12</artifactId>
+		    <version>1.7.21</version>
+		</dependency>
+		<dependency>
 		    <groupId>ch.qos.logback</groupId>
 		    <artifactId>logback-classic</artifactId>
 		    <version>1.2.3</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.slf4j</groupId>
-		    <artifactId>slf4j-log4j12</artifactId>
-		    <version>1.7.21</version>
-		</dependency>
-		<!-- <dependency>
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
 			<version>1.6.1</version>
-		</dependency> -->
+		</dependency>
 		<!-- mybatis plus -->
 		<dependency>
             <groupId>com.baomidou</groupId>
