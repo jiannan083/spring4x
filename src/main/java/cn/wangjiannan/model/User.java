@@ -146,4 +146,102 @@ public class User implements Serializable {
 		this.createTime = createTime;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((age == null) ? 0 : age.hashCode());
+		result = prime * result + ((createTime == null) ? 0 : createTime.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((loginName == null) ? 0 : loginName.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((organizationId == null) ? 0 : organizationId.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
+		result = prime * result + ((salt == null) ? 0 : salt.hashCode());
+		result = prime * result + ((sex == null) ? 0 : sex.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		result = prime * result + ((userType == null) ? 0 : userType.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (age == null) {
+			if (other.age != null)
+				return false;
+		} else if (!age.equals(other.age))
+			return false;
+		if (createTime == null) {
+			if (other.createTime != null)
+				return false;
+		} else if (!createTime.equals(other.createTime))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (loginName == null) {
+			if (other.loginName != null)
+				return false;
+		} else if (!loginName.equals(other.loginName))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (organizationId == null) {
+			if (other.organizationId != null)
+				return false;
+		} else if (!organizationId.equals(other.organizationId))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (phone == null) {
+			if (other.phone != null)
+				return false;
+		} else if (!phone.equals(other.phone))
+			return false;
+		if (salt == null) {
+			if (other.salt != null)
+				return false;
+		} else if (!salt.equals(other.salt))
+			return false;
+		if (sex == null) {
+			if (other.sex != null)
+				return false;
+		} else if (!sex.equals(other.sex))
+			return false;
+		if (status == null) {
+			if (other.status != null)
+				return false;
+		} else if (!status.equals(other.status))
+			return false;
+		if (userType == null) {
+			if (other.userType != null)
+				return false;
+		} else if (!userType.equals(other.userType))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", loginName=" + loginName + ", name=" + name + ", password=" + password + ", salt=" + salt + ", sex=" + sex + ", age=" + age
+				+ ", phone=" + phone + ", userType=" + userType + ", status=" + status + ", organizationId=" + organizationId + ", createTime=" + createTime
+				+ "]";
+	}
+
 }

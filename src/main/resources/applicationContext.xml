@@ -20,7 +20,7 @@
         <property name="fileEncoding">
         	<value>UTF-8</value>
         </property>
-        <!-- <property name="ignoreUnresolvablePlaceholders" value="true" /> -->
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
     </bean>
     
     <!-- aspectj aop启用CGliB代理 -->
