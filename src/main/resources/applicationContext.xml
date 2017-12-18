@@ -20,6 +20,7 @@
         <property name="fileEncoding">
         	<value>UTF-8</value>
         </property>
+        <!-- <property name="ignoreUnresolvablePlaceholders" value="true" /> -->
     </bean>
     
     <!-- aspectj aop启用CGliB代理 -->
@@ -29,5 +30,5 @@
 	<!-- <context:component-scan base-package="cn.wangjiannan.service" /> -->
 	
 	<import resource="classpath:xml/spring-mybatis.xml"/>
-	<import resource="classpath:xml/spring-shiro.xml"/>
+	<!-- <import resource="classpath:xml/spring-shiro.xml"/> -->
 </beans>  

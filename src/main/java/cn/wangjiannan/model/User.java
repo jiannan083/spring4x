@@ -25,7 +25,7 @@ public class User implements Serializable {
 
 	/** 密码 */
 	private String password;
-	
+
 	/** 密码加密盐 */
 	private String salt;
 
@@ -49,7 +49,6 @@ public class User implements Serializable {
 
 	/** 创建时间 */
 	private Date createTime;
-
 
 	public Long getId() {
 		return this.id;
@@ -147,8 +146,4 @@ public class User implements Serializable {
 		this.createTime = createTime;
 	}
 
-//	@Override
-//	public String toString() {
-//		return JsonUtils.toJson(this);
-//	}
 }

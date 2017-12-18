@@ -61,7 +61,7 @@
     				</list>
     			</property>
     		 -->
-        <!--单Realm配置,设置自定义Realm,需要自己实现处理逻辑-->
+        <!-- 单Realm配置,设置自定义Realm,需要自己实现处理逻辑(realm范围) -->
         <property name="realm" ref="shiroDbRealm"/>
         <!--将缓存管理器，交给安全管理器-->
         <property name="cacheManager" ref="shiroSpringCacheManager"/>

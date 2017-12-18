@@ -1,5 +1,13 @@
 package cn.wangjiannan.service;
 
-public interface UserService {
-	public void getUserById(Long id);
+import java.util.List;
+
+import com.baomidou.mybatisplus.service.IService;
+
+import cn.wangjiannan.model.User;
+import cn.wangjiannan.model.vo.UserVo;
+
+public interface UserService extends IService<User> {
+	List<User> selectByLoginName(UserVo userVo);
+
 }
