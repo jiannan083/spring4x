@@ -18,7 +18,7 @@ public class UserTest extends BaseTest {
 	public void testUser() {
 		UserVo userVo = new UserVo();
 		userVo.setLoginName("admin");
-		userVo.setId(1L);
+		// userVo.setId(1L);
 		List<User> list = userService.selectByLoginName(userVo);
 		logger.info("-----" + list.get(0).toString());
 	}
