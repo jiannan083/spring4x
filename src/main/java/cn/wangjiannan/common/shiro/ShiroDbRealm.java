@@ -1,6 +1,8 @@
 package cn.wangjiannan.common.shiro;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -65,6 +67,8 @@ public class ShiroDbRealm extends AuthorizingRealm {
 			return null;
 		}
 		// 读取用户的url和角色
+		Map<String, Set<String>> resourceMap = roleService.selectResourceMapByUserId(user.getId());
+
 		return null;
 	}
 

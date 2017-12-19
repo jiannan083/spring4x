@@ -44,13 +44,7 @@
             </map>
         </property>
     </bean>
-
-    <!-- <bean class="com.wangzhixuan.commons.shiro.captcha.DreamCaptcha">
-        <property name="cacheManager" ref="shiroSpringCacheManager"/>
-        复用半小时缓存
-        <property name="cacheName" value="halfHour"/>
-    </bean> -->
-
+    
     <!--安全管理器, 核心安全管理接口-->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
     		<!-- 
@@ -69,9 +63,8 @@
         <property name="rememberMeManager" ref="rememberMeManager"/>
         <property name="sessionManager" ref="sessionManager"/>
     </bean>
-
     <!-- 項目自定义的Realm -->
-    <bean id="shiroDbRealm" class="cn.wangjiannan.commons.shiro.ShiroDbRealm">
+    <bean id="shiroDbRealm" class="cn.wangjiannan.common.shiro.ShiroDbRealm">
         <constructor-arg index="0" name="cacheManager" ref="shiroSpringCacheManager"/>
         <constructor-arg index="1" name="matcher" ref="credentialsMatcher"/>
         <!-- 启用身份验证缓存，即缓存AuthenticationInfo信息，默认false -->
@@ -81,6 +74,13 @@
         <!-- 缓存AuthorizationInfo信息的缓存名称 -->
         <property name="authorizationCacheName" value="authorizationCache"/>
     </bean>
+
+    <!-- <bean class="com.wangzhixuan.commons.shiro.captcha.DreamCaptcha">
+        <property name="cacheManager" ref="shiroSpringCacheManager"/>
+        复用半小时缓存
+        <property name="cacheName" value="halfHour"/>
+    </bean> -->
+
 
     <!-- 记住密码Cookie -->
     <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">  
@@ -96,8 +96,6 @@
         <property name="cookie" ref="rememberMeCookie"/>  
     </bean>
 
-    <!-- ajax session超时时处理 -->
-    <bean id="ajaxSessionFilter" class="com.wangzhixuan.commons.shiro.ShiroAjaxSessionFilter"/>
 
     <!-- 用户授权信息Cache, 采用spring-cache, 具体请查看spring-ehcache.xml、spring-redis.xml -->
     <bean id="shiroSpringCacheManager" class="com.wangzhixuan.commons.shiro.cache.ShiroSpringCacheManager">
@@ -139,4 +137,7 @@
         <property name="retryLimitCacheName" value="halfHour"/>
         <property name="passwordHash" ref="passwordHash"/>
     </bean>
+    
+    <!-- ajax session超时时处理 -->
+    <bean id="ajaxSessionFilter" class="cn.wangjiannan.common.shiro.ShiroAjaxSessionFilter"/>
 </beans>
