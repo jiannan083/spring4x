@@ -7,6 +7,7 @@ import java.util.Set;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -68,8 +69,12 @@ public class ShiroDbRealm extends AuthorizingRealm {
 		}
 		// 读取用户的url和角色
 		Map<String, Set<String>> resourceMap = roleService.selectResourceMapByUserId(user.getId());
-
-		return null;
+		Set<String> urls = resourceMap.get("urls");
+		Set<String> roles = resourceMap.get("roles");
+		ShiroUser shiroUser = new ShiroUser(user.getId(), user.getLoginName(), user.getName(), urls);
+		shiroUser.setRoles(roles);
+		// 认证缓存信息
+		return new SimpleAuthenticationInfo(shiroUser, user.getPassword().toCharArray(), ShiroByteSource.of(user.getSalt()), getName());
 	}
 
 	/**
