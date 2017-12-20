@@ -73,14 +73,22 @@
     
     <!-- 項目自定义的Realm -->
     <bean id="shiroDbRealm" class="cn.wangjiannan.common.shiro.ShiroDbRealm">
-        <!-- <constructor-arg index="0" name="cacheManager" ref="shiroSpringCacheManager"/> -->
-        <!-- <constructor-arg index="1" name="matcher" ref="credentialsMatcher"/> -->
+    		<!-- constructor-arg：通过ShiroDbRealm构造函数注入 -->
+    		<!-- 构造函数第一个参数,参数名cacheManager -->
+        <constructor-arg index="0" name="cacheManager" ref="shiroSpringCacheManager"/>
+        <!-- 构造函数第二个参数,参数名matcher -->
+        <constructor-arg index="1" name="matcher" ref="credentialsMatcher"/>
         <!-- 启用身份验证缓存，即缓存AuthenticationInfo信息，默认false -->
-        <!-- <property name="authenticationCachingEnabled" value="true"/> -->
+        <property name="authenticationCachingEnabled" value="true"/>
         <!-- 缓存AuthenticationInfo信息的缓存名称 -->
-        <!-- <property name="authenticationCacheName" value="authenticationCache"/> -->
+        <property name="authenticationCacheName" value="authenticationCache"/>
         <!-- 缓存AuthorizationInfo信息的缓存名称 -->
-        <!-- <property name="authorizationCacheName" value="authorizationCache"/> -->
+        <property name="authorizationCacheName" value="authorizationCache"/>
+    </bean>
+    
+    <!-- 用户授权信息Cache, 采用spring-cache, 具体请查看spring-ehcache.xml、spring-redis.xml -->
+    <bean id="shiroSpringCacheManager" class="com.wangzhixuan.commons.shiro.cache.ShiroSpringCacheManager">
+        <property name="cacheManager" ref="cacheManager"/>
     </bean>
 
     <!-- <bean class="com.wangzhixuan.commons.shiro.captcha.DreamCaptcha">
@@ -105,11 +113,6 @@
     </bean>
 
 
-    <!-- 用户授权信息Cache, 采用spring-cache, 具体请查看spring-ehcache.xml、spring-redis.xml -->
-    <bean id="shiroSpringCacheManager" class="com.wangzhixuan.commons.shiro.cache.ShiroSpringCacheManager">
-        <property name="cacheManager" ref="cacheManager"/>
-    </bean>
-    
     <!-- 会话管理器 -->
     <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
         <!-- 设置全局会话超时时间 半小时 -->
