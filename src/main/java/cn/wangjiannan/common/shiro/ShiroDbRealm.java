@@ -10,8 +10,10 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,8 +89,43 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		// TODO Auto-generated method stub
-		return null;
+		ShiroUser shiroUser = (ShiroUser) principals.getPrimaryPrincipal();
+		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+		info.setRoles(shiroUser.getRoles());
+		info.addStringPermissions(shiroUser.getUrlSet());
+		return info;
+	}
+
+	@Override
+	protected Object getAuthenticationCacheKey(PrincipalCollection principals) {
+		ShiroUser shiroUser = (ShiroUser) super.getAvailablePrincipal(principals);
+		return shiroUser.toString();
+	}
+
+	@Override
+	protected Object getAuthorizationCacheKey(PrincipalCollection principals) {
+		ShiroUser shiroUser = (ShiroUser) super.getAvailablePrincipal(principals);
+		return shiroUser.toString();
+	}
+
+	/**
+	 * 清除用户缓存
+	 * 
+	 * @param shiroUser
+	 */
+	public void removeUserCache(ShiroUser shiroUser) {
+		removeUserCache(shiroUser.getLoginName());
+	}
+
+	/**
+	 * 清除用户缓存
+	 * 
+	 * @param loginName
+	 */
+	public void removeUserCache(String loginName) {
+		SimplePrincipalCollection principals = new SimplePrincipalCollection();
+		principals.add(loginName, super.getName());
+		super.clearCachedAuthenticationInfo(principals);
 	}
 
 }

@@ -8,11 +8,11 @@
     <description>Shiro安全配置</description>
     
     <!-- 
-    		Shiro Filter
-    		Shiro主过滤器本身功能十分强大,其强大之处就在于它之处任何基于URL路径表达式的 自定义的过滤器的执行Web应用中,
-    		Shiro可控制的web请求必须经过Shiro主过滤器拦截,Shiro对基于Spring的web应用提供了完美的支持
-    		此处的bean的ID必须要和web.xml中的Shiro的过滤器的那么name保持一致
-    	 -->
+    	配置Shiro Filter
+    	Shiro主过滤器本身功能十分强大,其强大之处就在于它之处任何基于URL路径表达式的 自定义的过滤器的执行Web应用中,
+    	Shiro可控制的web请求必须经过Shiro主过滤器拦截,Shiro对基于Spring的web应用提供了完美的支持
+    	此处的bean的ID必须要和web.xml中的Shiro的过滤器的那么name保持一致
+    -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <!-- Shiro的核心安全接口,这个属性是必须的 -->
         <property name="securityManager" ref="securityManager"/>
@@ -22,12 +22,19 @@
         <property name="successUrl" value="/index"/>
         <!-- 用户访问未对其授权的资源时,所显示的连接 -->
         <property name="unauthorizedUrl" value="/unauth"/>
+        <!-- 代表我们要完成shiro过滤器的具体配置 -->
         <property name="filterChainDefinitions">
             <value>
                 <!-- 
-                    anon  不需要认证
-                    authc 需要认证
+                    anon  不需要认证就可以访问的资源
+                    authc 需要认证才能访问的web资源
                     user  验证通过或RememberMe登录的都可以
+                    
+                    ?	一个字符
+                    *	零个或多个字符
+                    **	零个或多个路径所有
+                    
+                    url匹配顺序:采取第一次匹配优先的方式
                 -->
                 /captcha.jpg = anon
                 /commons/** = anon
@@ -55,24 +62,25 @@
     				</list>
     			</property>
     		 -->
-        <!-- 单Realm配置,设置自定义Realm,需要自己实现处理逻辑(realm范围) -->
+        <!-- realm负责获取处理数据;单Realm配置,设置自定义Realm,需要自己实现处理逻辑 -->
         <property name="realm" ref="shiroDbRealm"/>
-        <!--将缓存管理器，交给安全管理器-->
+        <!--定义缓存管理器-->
         <property name="cacheManager" ref="shiroSpringCacheManager"/>
         <!-- 记住密码管理 -->
-        <property name="rememberMeManager" ref="rememberMeManager"/>
-        <property name="sessionManager" ref="sessionManager"/>
+        <!-- <property name="rememberMeManager" ref="rememberMeManager"/> -->
+        <!-- <property name="sessionManager" ref="sessionManager"/> -->
     </bean>
+    
     <!-- 項目自定义的Realm -->
     <bean id="shiroDbRealm" class="cn.wangjiannan.common.shiro.ShiroDbRealm">
-        <constructor-arg index="0" name="cacheManager" ref="shiroSpringCacheManager"/>
-        <constructor-arg index="1" name="matcher" ref="credentialsMatcher"/>
+        <!-- <constructor-arg index="0" name="cacheManager" ref="shiroSpringCacheManager"/> -->
+        <!-- <constructor-arg index="1" name="matcher" ref="credentialsMatcher"/> -->
         <!-- 启用身份验证缓存，即缓存AuthenticationInfo信息，默认false -->
-        <property name="authenticationCachingEnabled" value="true"/>
+        <!-- <property name="authenticationCachingEnabled" value="true"/> -->
         <!-- 缓存AuthenticationInfo信息的缓存名称 -->
-        <property name="authenticationCacheName" value="authenticationCache"/>
+        <!-- <property name="authenticationCacheName" value="authenticationCache"/> -->
         <!-- 缓存AuthorizationInfo信息的缓存名称 -->
-        <property name="authorizationCacheName" value="authorizationCache"/>
+        <!-- <property name="authorizationCacheName" value="authorizationCache"/> -->
     </bean>
 
     <!-- <bean class="com.wangzhixuan.commons.shiro.captcha.DreamCaptcha">
