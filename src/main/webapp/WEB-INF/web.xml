@@ -43,7 +43,7 @@
 		<!-- init-param是放在一个servlet内的，所以这个参数是只针对某一个servlet而言 -->
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-            <param-value>classpath:applicationContext-springMVC.xml</param-value>
+            <param-value>classpath:spring-mvc.xml</param-value>
         </init-param>
 		<load-on-startup>1</load-on-startup>
 		<async-supported>true</async-supported>
