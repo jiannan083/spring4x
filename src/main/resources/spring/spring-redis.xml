@@ -8,9 +8,12 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/cache
        http://www.springframework.org/schema/cache/spring-cache.xsd">
-
-    <!-- 以前项目中的配置，注意需要添加Spring Data Redis等jar包 -->
     <description>redis配置</description>
+    
+    <!-- 缓存配置 -->  
+    <!-- 启用缓存注解功能(请将其配置在Spring主配置文件中) -->
+    <!-- spring-ehcache.xml中的只能使用一个 -->
+    <cache:annotation-driven cache-manager="cacheManager"/>
 
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
         <property name="maxIdle" value="${redis.pool.maxIdle}"/>
@@ -63,6 +66,4 @@
         </property>
     </bean>
     
-    <!-- cache注解，和spring-ehcache.xml中的只能使用一个 -->
-    <cache:annotation-driven cache-manager="cacheManager" proxy-target-class="true"/>
 </beans>

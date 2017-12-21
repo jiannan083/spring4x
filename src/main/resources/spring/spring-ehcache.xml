@@ -6,18 +6,26 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/cache
        http://www.springframework.org/schema/cache/spring-cache.xsd">
+    <!-- 在spring-context-support包中 -->
+    
     <!-- Spring提供的基于的Ehcache实现的缓存管理器 -->
+    
+    <!-- 缓存配置 -->  
+    <!-- 启用缓存注解功能(请将其配置在Spring主配置文件中) -->
+    <!-- spring-redis.xml中的只能使用一个 -->
+    <cache:annotation-driven cache-manager="cacheManager" />
+    
+    <!-- 声明一个缓存管理器（EhCacheCacheManager）-->
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+        <property name="cacheManager" ref="ehcacheManager"/>
+        <!-- 表示是否事务环绕的，如果true，则如果事务回滚，缓存也回滚，默认false -->
+        <property name="transactionAware" value="true"/>
+    </bean>
     
     <!-- 如果有多个ehcacheManager要在bean加上p:shared="true" -->
     <bean id="ehcacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
         <property name="configLocation" value="classpath:xml/ehcache.xml"/>
     </bean>
     
-    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
-        <property name="cacheManager" ref="ehcacheManager"/>
-        <property name="transactionAware" value="true"/>
-    </bean>
     
-    <!-- cache注解，和spring-redis.xml中的只能使用一个 -->
-    <cache:annotation-driven cache-manager="cacheManager" proxy-target-class="true"/>
 </beans>
