@@ -24,13 +24,9 @@ import cn.wangjiannan.service.RoleService;
 import cn.wangjiannan.service.UserService;
 
 /**
- * shiro权限认证
+ * shiro认证、授权
  * 
- * 在认证、授权内部实现机制中都有提到，最终处理都将交给Real进行处理。因为在Shiro中，
- * 
- * 最终是通过Realm来获取应用程序中的用户、角色及权限信息的。通常情况下，在Realm中会
- * 
- * 直接从我们的数据源中获取Shiro需要的验证信息。可以说，Realm是专用于安全框架的DAO.
+ * 一般继承AuthorizingRealm（授权）即可；其继承了AuthenticatingRealm（即身份验证）， 而且也间接继承了CachingRealm（带有缓存实现）
  * 
  * @author wangjiannan
  * @date 2017年12月17日 下午1:19:24
@@ -44,11 +40,9 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	private RoleService roleService;
 
 	/**
-	 * 认证实现:继承AuthorizingRealm抽象类，重载doGetAuthenticationInfo ()，重写获取用户信息的方法.
+	 * Shiro登录认证(Authenticator)
 	 * 
-	 * Shiro登录认证(原理：用户提交 用户名和密码 --- shiro 封装令牌 ---- realm通过用户名将密码查询返回
-	 * 
-	 * ---- shiro 自动去比较查询出密码和用户输入密码是否一致---- 进行登陆控制 )
+	 * (原理：用户提交用户名和密码-shiro封装令牌-realm通过用户名将密码查询返回-shiro自动去比较查询出密码和用户输入密码是否一致-进行登陆控制 )
 	 * 
 	 * @author wangjiannan
 	 * @date 2017年12月18日 下午1:28:33
@@ -80,7 +74,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	}
 
 	/**
-	 * Shiro权限认证
+	 * Shiro授权（访问控制）
 	 * 
 	 * 授权实现:则与认证实现非常相似，在我们自定义的Realm中，重载doGetAuthorizationInfo()方法，重写获取用户权限的方法即可
 	 * 

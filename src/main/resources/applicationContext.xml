@@ -29,6 +29,12 @@
     <!-- 扫描注册使用注解的bean -->
 	<!-- <context:component-scan base-package="cn.wangjiannan.service" /> -->
 	
-	<import resource="classpath:xml/spring-mybatis.xml"/>
-	<import resource="classpath:xml/spring-shiro.xml"/>
+	<import resource="classpath:spring/spring-mybatis.xml"/>
+    <import resource="classpath:spring/spring-ehcache.xml"/>
+    <!-- 
+    <import resource="classpath:spring/spring-redis.xml"/>
+     -->
+    <!-- Spring 异步event需要开启task -->
+    <import resource="classpath:spring/spring-task.xml"/>
+    <import resource="classpath:spring/spring-shiro.xml"/>
 </beans>  
