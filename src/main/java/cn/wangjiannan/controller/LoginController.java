@@ -38,9 +38,9 @@ public class LoginController extends BaseController {
 		if (StringUtils.isBlank(captcha)) {
 			throw new RuntimeException("验证码不能为空");
 		}
-		// if (!dreamCaptcha.validate(request, response, captcha)) {
-		// throw new RuntimeException("验证码错误");
-		// }
+		if (!dreamCaptcha.validate(request, response, captcha)) {
+			throw new RuntimeException("验证码错误");
+		}
 		// 1.创建Subject实例
 		Subject user = SecurityUtils.getSubject();
 		// 2.判断当前用户是否登录
