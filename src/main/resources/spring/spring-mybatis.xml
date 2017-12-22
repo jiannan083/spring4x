@@ -13,9 +13,9 @@
 	
     <!-- dataSource -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
-        <property name="url" value="${db.url}" />
-        <property name="username" value="${db.username}" />
-        <property name="password" value="${db.password}" />
+        <property name="url" value="${db.master.url}" />
+        <property name="username" value="${db.master.username}" />
+        <property name="password" value="${db.master.password}" />
         <!-- 初始化连接大小 -->
         <property name="initialSize" value="5" />
         <!-- 连接池最大使用连接数量 -->

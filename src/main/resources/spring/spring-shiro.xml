@@ -90,7 +90,7 @@
     </bean>
     
     <!-- 用户授权信息Cache, 采用spring-cache, 具体请查看spring-ehcache.xml、spring-redis.xml -->
-    <bean id="shiroSpringCacheManager" class="com.wangzhixuan.commons.shiro.cache.ShiroSpringCacheManager">
+    <bean id="shiroSpringCacheManager" class="cn.wangjiannan.commons.shiro.cache.ShiroSpringCacheManager">
         <property name="cacheManager" ref="cacheManager"/>
     </bean>
     
@@ -115,10 +115,6 @@
         <property name="retryLimitCacheName" value="halfHour"/>
         <property name="passwordHash" ref="passwordHash"/>
     </bean>
-    
-    
-    
-    
 
     <!-- <bean class="com.wangzhixuan.commons.shiro.captcha.DreamCaptcha">
         <property name="cacheManager" ref="shiroSpringCacheManager"/>
@@ -134,8 +130,6 @@
         <!-- 7天,采用spring el计算方便修改[细节决定成败]！ -->
         <property name="maxAge" value="#{7 * 24 * 60 * 60}"/>
     </bean>
-
-    
     
     <!-- 会话DAO 用于会话的CRUD -->
     <bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
@@ -156,8 +150,6 @@
         <property name="algorithmName" value="md5"/>
         <property name="hashIterations" value="1"/>
     </bean>
-    
-    
     
     <!-- ajax session超时时处理 -->
     <bean id="ajaxSessionFilter" class="cn.wangjiannan.common.shiro.ShiroAjaxSessionFilter"/>
