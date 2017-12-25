@@ -10,10 +10,38 @@
        http://www.springframework.org/schema/cache/spring-cache.xsd">
     <description>redis配置</description>
     
-    <!-- 缓存配置 -->  
-    <!-- 启用缓存注解功能(请将其配置在Spring主配置文件中) -->
-    <!-- spring-ehcache.xml中的只能使用一个 -->
-    <cache:annotation-driven cache-manager="cacheManager"/>
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxIdle" value="${redis.pool.maxIdle}"/>
+        <property name="maxTotal" value="${redis.pool.maxActive}"/>
+        <property name="maxWaitMillis" value="${redis.pool.maxWait}"/>
+        <property name="testOnBorrow" value="${redis.pool.testOnBorrow}"/>
+        <property name="testOnReturn" value="${redis.pool.testOnReturn}"/>
+    </bean>
+    
+    <!-- JedisConnectionFactory -->
+    <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="hostName" value="${redis.master.ip}"/>
+        <property name="port" value="${redis.master.port}"/>
+        <property name="password" value="${redis.master.password}"/>
+        <!-- <property name="dbIndex" value="${redis.master.dbIndex}"/> -->
+        <property name="poolConfig" ref="jedisPoolConfig"/>
+    </bean>
+    
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate" p:connectionFactory-ref="jedisConnectionFactory">
+        <!-- 序列化策略 -->
+        <property name="keySerializer">
+            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"></bean>
+        </property>
+        <property name="valueSerializer">
+            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>
+        </property>
+        <property name="hashKeySerializer">
+            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>
+        </property>
+        <property name="hashValueSerializer">
+            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>
+        </property>
+    </bean>
     
     <!--spring cache-->
     <bean id="cacheManager" class="org.springframework.data.redis.cache.RedisCacheManager" c:redisOperations-ref="redisTemplate">
@@ -34,36 +62,6 @@
         </property>
     </bean>
     
-    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate" p:connectionFactory-ref="jedisConnectionFactory">
-        <!-- 序列化策略 -->
-        <property name="keySerializer">
-            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"></bean>
-        </property>
-        <property name="valueSerializer">
-            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>
-        </property>
-        <property name="hashKeySerializer">
-            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>
-        </property>
-        <property name="hashValueSerializer">
-            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>
-        </property>
-    </bean>
-    
-    <!-- JedisConnectionFactory -->
-    <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
-        <property name="hostName" value="${redis.master.ip}"/>
-        <property name="port" value="${redis.master.port}"/>
-        <property name="password" value="${redis.master.password}"/>
-        <!-- <property name="dbIndex" value="${redis.master.dbIndex}"/> -->
-        <property name="poolConfig" ref="jedisPoolConfig"/>
-    </bean>
-    
-    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
-        <property name="maxIdle" value="${redis.pool.maxIdle}"/>
-        <property name="maxTotal" value="${redis.pool.maxActive}"/>
-        <property name="maxWaitMillis" value="${redis.pool.maxWait}"/>
-        <property name="testOnBorrow" value="${redis.pool.testOnBorrow}"/>
-        <property name="testOnReturn" value="${redis.pool.testOnReturn}"/>
-    </bean>
+    <!-- 启用缓存注解功能(请将其配置在Spring主配置文件中) -->
+    <cache:annotation-driven cache-manager="cacheManager" proxy-target-class="true"/>
 </beans>
