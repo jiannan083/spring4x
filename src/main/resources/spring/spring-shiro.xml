@@ -7,12 +7,12 @@
 
     <description>Shiro安全配置</description>
     
-    <!-- 
-    	配置Shiro Filter
-    	Shiro主过滤器本身功能十分强大,其强大之处就在于它之处任何基于URL路径表达式的 自定义的过滤器的执行Web应用中,
-    	Shiro可控制的web请求必须经过Shiro主过滤器拦截,Shiro对基于Spring的web应用提供了完美的支持
-    	此处的bean的ID必须要和web.xml中的Shiro的过滤器的那么name保持一致
-    -->
+    <!-- 配置缓存方案 -->
+    <bean id="shiroSpringCacheManager" class="cn.wangjiannan.common.shiro.cache.ShiroSpringCacheManager">
+        <property name="cacheManager" ref="cacheManager"/>
+    </bean>
+    
+    <!-- 配置Shiro Filter,此处的bean的ID必须要和web.xml中的Shiro的过滤器的那么name保持一致 -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <!-- Shiro的核心安全接口,这个属性是必须的 -->
         <property name="securityManager" ref="securityManager"/>
@@ -81,13 +81,8 @@
         <property name="authorizationCacheName" value="authorizationCache"/>
     </bean>
     
-    <!-- 用户授权信息Cache, 采用spring-cache, 具体请查看spring-ehcache.xml、spring-redis.xml -->
-    <bean id="shiroSpringCacheManager" class="cn.wangjiannan.commons.shiro.cache.ShiroSpringCacheManager">
-        <property name="cacheManager" ref="cacheManager"/>
-    </bean>
-    
     <!-- 密码错误5次锁定半小时 -->
-    <bean id="credentialsMatcher" class="com.wangzhixuan.commons.shiro.RetryLimitCredentialsMatcher">
+    <bean id="credentialsMatcher" class="cn.wangjiannan.common.shiro.RetryLimitCredentialsMatcher">
         <constructor-arg ref="shiroSpringCacheManager"/>
         <property name="retryLimitCacheName" value="halfHour"/>
         <property name="passwordHash" ref="passwordHash"/>
@@ -95,7 +90,7 @@
 
     
     <!-- shiro密码加密配置 -->
-    <bean id="passwordHash" class="com.wangzhixuan.commons.shiro.PasswordHash">
+    <bean id="passwordHash" class="cn.wangjiannan.common.shiro.PasswordHash">
         <!-- 密码加密 1次md5,增强密码可修改此处 -->
         <property name="algorithmName" value="md5"/>
         <property name="hashIterations" value="1"/>
@@ -106,6 +101,13 @@
     <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
         <property name="staticMethod" value="org.apache.shiro.SecurityUtils.setSecurityManager"/>
         <property name="arguments" ref="securityManager"/>
+    </bean>
+    
+    <!-- 验证码 -->
+    <bean class="cn.wangjiannan.common.shiro.captcha.DreamCaptcha">
+        <property name="cacheManager" ref="shiroSpringCacheManager"/>
+        <!-- 复用半小时缓存 -->
+        <property name="cacheName" value="halfHour"/>
     </bean>
     
 </beans>

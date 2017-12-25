@@ -9,12 +9,14 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.wangjiannan.common.base.BaseController;
+import cn.wangjiannan.common.shiro.captcha.DreamCaptcha;
 import cn.wangjiannan.common.util.StringUtils;
 
 /**
@@ -25,6 +27,10 @@ import cn.wangjiannan.common.util.StringUtils;
  */
 @Controller
 public class LoginController extends BaseController {
+
+	@Autowired
+	private DreamCaptcha dreamCaptcha;
+
 	@RequestMapping("/login")
 	@ResponseBody
 	public Object login(HttpServletRequest request, HttpServletResponse response, String username, String password, String captcha,

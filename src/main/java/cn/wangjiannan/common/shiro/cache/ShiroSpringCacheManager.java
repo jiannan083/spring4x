@@ -36,6 +36,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ShiroSpringCacheManager implements CacheManager, Destroyable {
 	private static final Logger logger = LoggerFactory.getLogger(ShiroSpringCacheManager.class);
+
 	private org.springframework.cache.CacheManager cacheManager;
 
 	public org.springframework.cache.CacheManager getCacheManager() {

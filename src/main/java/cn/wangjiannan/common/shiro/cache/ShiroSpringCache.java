@@ -34,8 +34,10 @@ import org.springframework.cache.Cache.ValueWrapper;
 /**
  * 使用spring-cache作为shiro缓存
  * 
- * @author L.cm
- *
+ * @author wangjiannan
+ * @date 2017年12月25日 下午3:51:04
+ * @param <K>
+ * @param <V>
  */
 @SuppressWarnings("unchecked")
 public class ShiroSpringCache<K, V> implements org.apache.shiro.cache.Cache<K, V> {

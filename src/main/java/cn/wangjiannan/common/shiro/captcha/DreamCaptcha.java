@@ -11,16 +11,17 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
 import cn.wangjiannan.common.util.StringUtils;
+import cn.wangjiannan.common.util.WebUtils;
 
 /**
- * 如梦验证码
+ * 验证码
  * 
- * @author L.cm
- *
+ * @author wangjiannan
+ * @date 2017年12月25日 上午10:37:00
  */
 public class DreamCaptcha implements InitializingBean {
-
 	private static final Logger logger = LoggerFactory.getLogger(DreamCaptcha.class);
+
 	private static final String DEFAULT_COOKIE_NAME = "dream-captcha";
 	private final static String DEFAULT_CHACHE_NAME = "dreamCaptchaCache";
 	private final static int DEFAULT_MAX_AGE = -1; // cookie超时默认为session会话状态
@@ -28,7 +29,6 @@ public class DreamCaptcha implements InitializingBean {
 	private CacheManager cacheManager;
 	private String cacheName;
 	private String cookieName;
-
 	private Cache<String, String> dreamCaptchaCache;
 
 	public DreamCaptcha() {
@@ -65,8 +65,14 @@ public class DreamCaptcha implements InitializingBean {
 		this.cookieName = cookieName;
 	}
 
+	/*
+	 * InitializingBean接口为bean提供了初始化方法的方式，它只包括afterPropertiesSet方法，凡是继承该接口的类，在初始化bean的时候会执行该方法
+	 */
 	@Override
 	public void afterPropertiesSet() throws Exception {
+		/*
+		 * Assert翻译为中文为"断言",经常用于:1.判断METHOD的参数是否属于正常值.2.JUNIT中使用.
+		 */
 		Assert.notNull(cacheManager, "cacheManager must not be null!");
 		Assert.hasText(cacheName, "cacheName must not be empty!");
 		Assert.hasText(cookieName, "cookieName must not be empty!");

@@ -11,4 +11,8 @@ public interface UserService extends IService<User> {
 
 	List<User> selectByLoginName(UserVo userVo);
 
+	User save(User user);
+
+	User select(Long id);
+
 }

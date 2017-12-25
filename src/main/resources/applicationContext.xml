@@ -10,29 +10,15 @@
        http://www.springframework.org/schema/aop
        http://www.springframework.org/schema/aop/spring-aop.xsd">
 	
-	<!-- 读取配置文件，在XML文件中用${key}替换指定的properties文件中的值 -->
-	<!-- <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="ignoreResourceNotFound" value="true" />
-        <property name="ignoreUnresolvablePlaceholders" value="true" />
-        <property name="fileEncoding" value="UTF-8" />
-        <property name="locations">
-            <list>
-                <value>classpath*:applications.properties</value>
-            </list>
-        </property>
-    </bean> -->
     <context:property-placeholder location="classpath:application.properties" ignore-unresolvable="true" />
     
     <!-- aspectj aop启用CGliB代理 -->
     <!-- <aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true"/> -->
     
-    <!-- 扫描注册使用注解的bean -->
-	<!-- <context:component-scan base-package="cn.wangjiannan.service" /> -->
-	
 	<import resource="classpath:spring/spring-mybatis.xml"/>
-    <!-- <import resource="classpath:spring/spring-ehcache.xml"/> -->
-    <import resource="classpath:spring/spring-redis.xml"/>
+    <import resource="classpath:spring/spring-ehcache.xml"/>
+    <!-- <import resource="classpath:spring/spring-redis.xml"/> -->
     <!-- Spring 异步event需要开启task -->
-    <import resource="classpath:spring/spring-task.xml"/>
+    <!-- <import resource="classpath:spring/spring-task.xml"/> -->
     <import resource="classpath:spring/spring-shiro.xml"/>
 </beans>  

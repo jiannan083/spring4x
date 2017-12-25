@@ -6,14 +6,12 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/cache
        http://www.springframework.org/schema/cache/spring-cache.xsd">
-    <!-- 在spring-context-support包中 -->
+    <!-- Spring提供的基于的Ehcache实现的缓存管理器,在spring-context-support包中 -->
     
-    <!-- Spring提供的基于的Ehcache实现的缓存管理器 -->
-    
-    <!-- 缓存配置 -->  
-    <!-- 启用缓存注解功能(请将其配置在Spring主配置文件中) -->
-    <!-- spring-redis.xml中的只能使用一个 -->
-    <cache:annotation-driven cache-manager="cacheManager" />
+    <!-- spring提供EhCacheManagerFactoryBean来简化ehcache cacheManager的创建 -->
+    <bean id="ehcacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation" value="classpath:xml/ehcache.xml"/>
+    </bean>
     
     <!-- 声明一个缓存管理器（EhCacheCacheManager）-->
     <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
@@ -22,10 +20,6 @@
         <property name="transactionAware" value="true"/>
     </bean>
     
-    <!-- 如果有多个ehcacheManager要在bean加上p:shared="true" -->
-    <bean id="ehcacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
-        <property name="configLocation" value="classpath:xml/ehcache.xml"/>
-    </bean>
-    
-    
+    <!-- 启用缓存注解 -->  
+    <cache:annotation-driven cache-manager="cacheManager" proxy-target-class="true"/>
 </beans>
