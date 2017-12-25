@@ -33,13 +33,13 @@ public class RedisTest extends BaseTest {
 
 	@Test
 	public void testRedis1() {
-		Long id = 1L;
-		// User user = new User();
-		// user.setId(id);
-		// user.setName("a");
-		// userService.save(user);
-		User user1 = userService.select(id);
-		System.out.println("--------" + user1);
+		Long id = 2L;
+		User user = new User();
+		user.setId(id);
+		user.setName("bb");
+		userService.save(user);
+		// User user1 = userService.select(id);
+		// System.out.println("--------" + user1);
 	}
 
 }
