@@ -11,6 +11,35 @@
         <property name="cacheManager" ref="cacheManager"/>
     </bean>
     
+    <!-- 会话DAO 用于会话的CRUD -->
+    <bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
+        <!-- Session缓存名字，默认就是shiro-activeSessionCache -->
+        <property name="activeSessionsCacheName" value="activeSessionCache"/>
+        <property name="cacheManager" ref="shiroCacheManager"/>
+    </bean>
+    <!-- 会话管理器 -->
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <!-- 设置全局会话超时时间 半小时 -->
+        <property name="globalSessionTimeout" value="#{30 * 60 * 1000}"/>
+        <!-- url上带sessionId 默认为true -->
+        <property name="sessionIdUrlRewritingEnabled" value="false"/>
+        <property name="sessionDAO" ref="sessionDAO"/>
+    </bean>
+    
+    <!-- 记住密码Cookie -->
+    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">  
+        <constructor-arg value="rememberMe"/>
+        <property name="httpOnly" value="true"/>
+        <!-- 7天,采用spring el计算方便修改[细节决定成败]！(maxAge=-1 表示浏览器关闭时失效此Cookie) -->
+        <property name="maxAge" value="#{7 * 24 * 60 * 60}"/>
+    </bean>
+    <!-- rememberMe管理器,cipherKey生成见{@code Base64Test.java} -->
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+    	<!-- cipherKey是加密rememberMe Cookie的密钥；默认AES算法 -->
+        <property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('5aaC5qKm5oqA5pyvAAAAAA==')}"/>
+        <property name="cookie" ref="rememberMeCookie"/>  
+    </bean>
+    
     <!-- shiro密码加密配置 -->
     <bean id="passwordHash" class="cn.wangjiannan.common.shiro.PasswordHash">
         <!-- 密码加密 1次md5,增强密码可修改此处 -->
@@ -53,9 +82,11 @@
     		 -->
         <!-- realm负责获取处理数据;单Realm配置,设置自定义Realm,需要自己实现处理逻辑 -->
         <property name="realm" ref="shiroDbRealm"/>
-        <!--定义缓存管理器-->
+        <!--定义缓存管理器，交给安全管理器-->
         <property name="cacheManager" ref="shiroCacheManager"/>
-        <!-- <property name="sessionManager" ref="sessionManager"/> -->
+        <!-- 记住密码管理 -->
+        <property name="rememberMeManager" ref="rememberMeManager"/>
+        <property name="sessionManager" ref="sessionManager"/>
     </bean>
     
     <!-- 配置Shiro Filter,此处的bean的ID必须要和web.xml中的Shiro的过滤器的那么name保持一致 -->

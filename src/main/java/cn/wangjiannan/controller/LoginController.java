@@ -51,6 +51,8 @@ public class LoginController extends BaseController {
 		// if (user.isAuthenticated() == false) {
 		// 3.将用户名和密码封装UsernamePasswordToken
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+		// 设置记住密码
+		token.setRememberMe(1 == rememberMe);
 		try {
 			user.login(token);
 			return renderSuccess();
