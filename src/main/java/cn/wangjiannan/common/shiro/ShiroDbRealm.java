@@ -9,8 +9,10 @@ import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
@@ -32,12 +34,16 @@ import cn.wangjiannan.service.UserService;
  * @date 2017年12月17日 下午1:19:24
  */
 public class ShiroDbRealm extends AuthorizingRealm {
-
 	private static final Logger logger = LoggerFactory.getLogger(ShiroDbRealm.class);
 
 	@Autowired
 	private UserService userService;
+	@Autowired
 	private RoleService roleService;
+
+	public ShiroDbRealm(CacheManager cacheManager, CredentialsMatcher matcher) {
+		super(cacheManager, matcher);
+	}
 
 	/**
 	 * Shiro登录认证(Authenticator)

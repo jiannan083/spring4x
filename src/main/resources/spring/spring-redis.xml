@@ -60,6 +60,8 @@
                 <entry key="authorizationCache" value="1800"/>
                 <entry key="authenticationCache" value="1800"/>
                 <entry key="activeSessionCache" value="1800"/>
+                <!-- 登录次数 -->
+                <entry key="retryLimitCache" value="1800"/>
             </map>
         </property>
     </bean>

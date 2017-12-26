@@ -35,9 +35,10 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
 /**
- * 输错5次密码锁定半小时，ehcache.xml配置
+ * 输错5次密码锁定半小时
  * 
- * @author L.cm
+ * @author wangjiannan
+ * @date 2017年12月26日 下午3:01:08
  */
 public class RetryLimitCredentialsMatcher extends HashedCredentialsMatcher implements InitializingBean {
 	private static final Logger logger = LoggerFactory.getLogger(RetryLimitCredentialsMatcher.class);
@@ -90,6 +91,14 @@ public class RetryLimitCredentialsMatcher extends HashedCredentialsMatcher imple
 		return matches;
 	}
 
+	/**
+	 * InitializingBean接口为bean提供了初始化方法的方式,它只包括afterPropertiesSet方法,
+	 * 
+	 * 凡是继承该接口的类,在初始化bean的时候会执行该方法
+	 * 
+	 * @author wangjiannan
+	 * @date 2017年12月26日 下午2:58:08
+	 */
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		Assert.notNull(passwordHash, "you must set passwordHash!");
