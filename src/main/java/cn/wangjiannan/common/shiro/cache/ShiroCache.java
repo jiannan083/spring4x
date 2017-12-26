@@ -1,24 +1,3 @@
-/**
- * The MIT License (MIT)
- * Copyright (c) 2016 Dreamlu (596392912@qq.com).
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- * the Software, and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
- * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
 package cn.wangjiannan.common.shiro.cache;
 
 import java.util.Collection;
@@ -32,25 +11,26 @@ import org.springframework.cache.Cache;
 import org.springframework.cache.Cache.ValueWrapper;
 
 /**
- * 使用spring-cache作为shiro缓存
+ * 使用spring cache实现ShiroCache(使用spring-cache作为shiro缓存)
  * 
  * @author wangjiannan
- * @date 2017年12月25日 下午3:51:04
+ * @date 2017年12月26日 下午1:33:45
  * @param <K>
  * @param <V>
  */
-@SuppressWarnings("unchecked")
-public class ShiroSpringCache<K, V> implements org.apache.shiro.cache.Cache<K, V> {
-	private static final Logger logger = LoggerFactory.getLogger(ShiroSpringCache.class);
-	private final org.springframework.cache.Cache cache;
+public class ShiroCache<K, V> implements org.apache.shiro.cache.Cache<K, V> {
+	private static final Logger logger = LoggerFactory.getLogger(ShiroCache.class);
 
-	public ShiroSpringCache(Cache cache) {
+	private final Cache cache;
+
+	public ShiroCache(Cache cache) {
 		if (cache == null) {
 			throw new IllegalArgumentException("Cache argument cannot be null.");
 		}
 		this.cache = cache;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public V get(K key) throws CacheException {
 		if (logger.isTraceEnabled()) {
@@ -111,6 +91,7 @@ public class ShiroSpringCache<K, V> implements org.apache.shiro.cache.Cache<K, V
 
 	@Override
 	public String toString() {
-		return "ShiroSpringCache [" + this.cache.getName() + "]";
+		return "ShiroCache [cache=" + this.cache.getName() + "]";
 	}
+
 }
