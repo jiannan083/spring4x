@@ -9,12 +9,15 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.wangjiannan.common.base.BaseController;
+import cn.wangjiannan.common.shiro.captcha.DreamCaptcha;
 import cn.wangjiannan.common.util.StringUtils;
 
 /**
@@ -25,11 +28,25 @@ import cn.wangjiannan.common.util.StringUtils;
  */
 @Controller
 public class LoginController extends BaseController {
+	@Autowired
+	private DreamCaptcha dreamCaptcha;
 
-	// @Autowired
-	// private DreamCaptcha dreamCaptcha;
+	/**
+	 * GET 登录
+	 * 
+	 * @return {String}
+	 */
+	@GetMapping("/login")
+	// @CsrfToken(create = true)
+	public String login() {
+		logger.info("GET请求登录");
+		if (SecurityUtils.getSubject().isAuthenticated()) {
+			return "redirect:/index";
+		}
+		return "login";
+	}
 
-	@RequestMapping("/login")
+	@PostMapping("/login")
 	@ResponseBody
 	public Object login(HttpServletRequest request, HttpServletResponse response, String username, String password, String captcha,
 			@RequestParam(value = "rememberMe", defaultValue = "0") Integer rememberMe) {
@@ -42,9 +59,9 @@ public class LoginController extends BaseController {
 		if (StringUtils.isBlank(captcha)) {
 			throw new RuntimeException("验证码不能为空");
 		}
-		// if (!dreamCaptcha.validate(request, response, captcha)) {
-		// throw new RuntimeException("验证码错误");
-		// }
+		if (!dreamCaptcha.validate(request, response, captcha)) {
+			throw new RuntimeException("验证码错误");
+		}
 		// 1.创建Subject实例
 		Subject user = SecurityUtils.getSubject();
 		// 2.判断当前用户是否登录

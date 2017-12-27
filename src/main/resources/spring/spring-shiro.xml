@@ -134,8 +134,6 @@
     <!-- 验证码 -->
     <bean class="cn.wangjiannan.common.shiro.captcha.DreamCaptcha">
         <property name="cacheManager" ref="shiroCacheManager"/>
-        <!-- 复用半小时缓存 -->
-        <property name="cacheName" value="halfHour"/>
     </bean>
     
 </beans>

@@ -9,14 +9,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.HandlerMethod;
 
 /**
- * Miscellaneous utilities for web applications.
- * @author L.cm
+ * WebUtils
+ * 
+ * @author wangjiannan
+ * @date 2017年12月27日 下午1:50:33
  */
 public class WebUtils extends org.springframework.web.util.WebUtils {
 	/**
-	 * 判断是否ajax请求
-	 * spring ajax 返回含有 ResponseBody 或者 RestController注解
-	 * @param handlerMethod HandlerMethod
+	 * 判断是否ajax请求 spring ajax 返回含有 ResponseBody 或者 RestController注解
+	 * 
+	 * @param handlerMethod
+	 *            HandlerMethod
 	 * @return 是否ajax请求
 	 */
 	public static boolean isAjax(HandlerMethod handlerMethod) {
@@ -35,6 +38,7 @@ public class WebUtils extends org.springframework.web.util.WebUtils {
 
 	/**
 	 * 读取cookie
+	 * 
 	 * @param request
 	 * @param key
 	 * @return
@@ -45,7 +49,8 @@ public class WebUtils extends org.springframework.web.util.WebUtils {
 	}
 
 	/**
-	 * 清除 某个指定的cookie 
+	 * 清除 某个指定的cookie
+	 * 
 	 * @param response
 	 * @param key
 	 */
@@ -55,6 +60,7 @@ public class WebUtils extends org.springframework.web.util.WebUtils {
 
 	/**
 	 * 设置cookie
+	 * 
 	 * @param response
 	 * @param name
 	 * @param value
@@ -65,6 +71,7 @@ public class WebUtils extends org.springframework.web.util.WebUtils {
 		cookie.setPath("/");
 		cookie.setMaxAge(maxAgeInSeconds);
 		cookie.setHttpOnly(true);
+		// 将cookie对象添加到response对象中，这样服务器在输出response对象中的内容时就会把cookie也输出到客户端浏览器
 		response.addCookie(cookie);
 	}
 }

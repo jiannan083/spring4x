@@ -18,7 +18,8 @@ import cn.wangjiannan.common.util.IOUtils;
 /**
  * 验证码工具类
  * 
- * @author L.cm
+ * @author wangjiannan
+ * @date 2017年12月27日 下午1:55:02
  */
 class CaptchaUtils {
 	// 默认的验证码大小

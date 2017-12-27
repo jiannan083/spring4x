@@ -62,6 +62,8 @@
                 <entry key="activeSessionCache" value="1800"/>
                 <!-- 登录次数 -->
                 <entry key="retryLimitCache" value="1800"/>
+                <!-- 验证码 -->
+                <entry key="captchaCache" value="1800"/>
             </map>
         </property>
     </bean>

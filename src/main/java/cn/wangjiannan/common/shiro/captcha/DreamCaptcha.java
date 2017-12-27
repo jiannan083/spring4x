@@ -23,7 +23,7 @@ public class DreamCaptcha implements InitializingBean {
 	private static final Logger logger = LoggerFactory.getLogger(DreamCaptcha.class);
 
 	private static final String DEFAULT_COOKIE_NAME = "dream-captcha";
-	private final static String DEFAULT_CHACHE_NAME = "dreamCaptchaCache";
+	private final static String DEFAULT_CHACHE_NAME = "captchaCache";
 	private final static int DEFAULT_MAX_AGE = -1; // cookie超时默认为session会话状态
 
 	private CacheManager cacheManager;

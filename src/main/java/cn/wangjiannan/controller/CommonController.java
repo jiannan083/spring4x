@@ -17,7 +17,7 @@ public class CommonController {
 	/**
 	 * 图形验证码
 	 */
-	@GetMapping("captcha.jpg")
+	@GetMapping("/captcha.jpg")
 	public void captcha(HttpServletRequest request, HttpServletResponse response) {
 		dreamCaptcha.generate(request, response);
 	}
