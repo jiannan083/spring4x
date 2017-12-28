@@ -69,7 +69,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 	@Override
 	public void selectUserPage(PageVo<User> pageVo) {
 		Page<User> page = new Page<>(pageVo.getNowpage(), pageVo.getPagesize());
-		page.setOrderByField(pageVo.getSort());
+		// page.setOrderByField(pageVo.getSort());
 		// page.setAsc(pageVo.getOrder().equalsIgnoreCase("asc"));
 		System.out.println("---------" + page.toString());
 		userMapper.selectUserPage(page, pageVo.getCondition());

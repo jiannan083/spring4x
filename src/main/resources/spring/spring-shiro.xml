@@ -113,6 +113,7 @@
                     
                     url匹配顺序:采取第一次匹配优先的方式
                 -->
+                /test/* = anon
                 /captcha.jpg = anon
                 /commons/** = anon
                 /static/** = anon

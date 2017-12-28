@@ -75,11 +75,11 @@ public class PageVo<T> implements Serializable {
 		this.total = total;
 	}
 
-	public List getRows() {
+	public List<T> getRows() {
 		return rows;
 	}
 
-	public void setRows(List rows) {
+	public void setRows(List<T> rows) {
 		this.rows = rows;
 	}
 
