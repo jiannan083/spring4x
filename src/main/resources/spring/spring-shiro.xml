@@ -118,7 +118,7 @@
                 /static/** = anon
                 /webhooks = anon
                 /login = anon
-                /logout = logout
+                <!-- /logout = logout -->
                 /** = user
             </value>
         </property>

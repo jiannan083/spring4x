@@ -58,6 +58,19 @@ public class LoginController extends BaseController {
 		return "login";
 	}
 
+	/**
+	 * 登录提交
+	 * 
+	 * @author wangjiannan
+	 * @date 2017年12月28日 上午10:29:07
+	 * @param request
+	 * @param response
+	 * @param username
+	 * @param password
+	 * @param captcha
+	 * @param rememberMe
+	 * @return
+	 */
 	@PostMapping("/login")
 	@ResponseBody
 	public Object login(HttpServletRequest request, HttpServletResponse response, String username, String password, String captcha,
@@ -72,17 +85,16 @@ public class LoginController extends BaseController {
 			throw new RuntimeException("验证码不能为空");
 		}
 		if (!dreamCaptcha.validate(request, response, captcha)) {
-			throw new RuntimeException("验证码错误");
+			throw new RuntimeException("验证码");
 		}
-		// 1.创建Subject实例
+		// 创建Subject实例
 		Subject user = SecurityUtils.getSubject();
-		// 2.判断当前用户是否登录
-		// if (user.isAuthenticated() == false) {
-		// 3.将用户名和密码封装UsernamePasswordToken
+		// 将用户名和密码封装UsernamePasswordToken
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 		// 设置记住密码
 		token.setRememberMe(1 == rememberMe);
 		try {
+			// 登录验证
 			user.login(token);
 			return renderSuccess();
 		} catch (UnknownAccountException e) {
@@ -94,8 +106,20 @@ public class LoginController extends BaseController {
 		} catch (Throwable e) {
 			throw new RuntimeException(e.getMessage(), e);
 		}
-		// }
-		// return null;
+	}
+
+	/**
+	 * 退出
+	 * 
+	 * @return {Result}
+	 */
+	@PostMapping("/logout")
+	@ResponseBody
+	public Object logout() {
+		logger.info("登出");
+		Subject user = SecurityUtils.getSubject();
+		user.logout();
+		return renderSuccess();
 	}
 
 }

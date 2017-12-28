@@ -27,6 +27,24 @@ public abstract class BaseController {
 	}
 
 	/**
+	 * 获取当前登录用户id
+	 * 
+	 * @return {Long}
+	 */
+	public Long getUserId() {
+		return this.getShiroUser().getId();
+	}
+
+	/**
+	 * 获取当前登录用户名
+	 * 
+	 * @return {String}
+	 */
+	public String getStaffName() {
+		return this.getShiroUser().getName();
+	}
+
+	/**
 	 * ajax失败
 	 * 
 	 * @param msg
