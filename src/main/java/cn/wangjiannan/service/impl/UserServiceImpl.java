@@ -69,12 +69,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 	@Override
 	public void selectUserPage(PageVo<User> pageVo) {
 		Page<User> page = new Page<>(pageVo.getNowpage(), pageVo.getPagesize());
-		// page.setOrderByField(pageVo.getSort());
-		// page.setAsc(pageVo.getOrder().equalsIgnoreCase("asc"));
-		System.out.println("---------" + page.toString());
-		userMapper.selectUserPage(page, pageVo.getCondition());
+		EntityWrapper<User> wrapper = new EntityWrapper<User>();
+		wrapper.orderBy(pageVo.getSort(), pageVo.getOrder().equalsIgnoreCase("ASC"));
+		selectPage(page, wrapper);
 		pageVo.setRows(page.getRecords());
 		pageVo.setTotal(page.getTotal());
+
+		//
+		//
+		// Page<SysLog> page = new Page<SysLog>(pageInfo.getNowpage(), pageInfo.getSize());
+		// EntityWrapper<SysLog> wrapper = new EntityWrapper<SysLog>();
+		// wrapper.orderBy(pageInfo.getSort(), pageInfo.getOrder().equalsIgnoreCase("ASC"));
+		// selectPage(page, wrapper);
+		// pageInfo.setRows(page.getRecords());
+		// pageInfo.setTotal(page.getTotal());
 
 	}
 

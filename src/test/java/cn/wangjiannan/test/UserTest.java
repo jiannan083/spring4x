@@ -28,7 +28,7 @@ public class UserTest extends BaseTest {
 
 	@Test
 	public void testUserPage() {
-		PageVo<User> pageVo = new PageVo<>(1, 10, "id asc", "asc");
+		PageVo<User> pageVo = new PageVo<>(1, 10, "id", "asc");
 		Map<String, Object> condition = new HashMap<String, Object>();
 		pageVo.setCondition(condition);
 		userService.selectUserPage(pageVo);
