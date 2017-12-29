@@ -1,6 +1,7 @@
 package cn.wangjiannan.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.baomidou.mybatisplus.service.IService;
 
@@ -12,11 +13,13 @@ public interface UserService extends IService<User> {
 
 	List<User> selectByLoginName(UserVo userVo);
 
-	// void selectDataGrid(PageInfo pageInfo);
+	void selectDataGrid(PageVo<Map<String, Object>> pageVo);
+
+	void insertByUserVo(UserVo userVo);
 
 	User save(User user);
 
 	User select(Long id);
 
-	void selectUserPage(PageVo<User> pageVo);
+	// void selectUserPage(PageVo<User> pageVo);
 }

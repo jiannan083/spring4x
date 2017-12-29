@@ -7,30 +7,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.wangjiannan.common.base.BaseController;
-import cn.wangjiannan.service.RoleService;
+import cn.wangjiannan.service.OrganizationService;
 
 /**
- * 权限管理
+ * 部门管理
  * 
  * @author wangjiannan
- * @date 2017年12月29日 上午10:22:48
+ * @date 2017年12月29日 上午10:27:03
  */
 @Controller
-@RequestMapping("/role")
-public class RoleController extends BaseController {
+@RequestMapping("/organization")
+public class OrganizationController extends BaseController {
 	@Autowired
-	private RoleService roleService;
+	private OrganizationService organizationService;
 
 	/**
-	 * 权限树
-	 * 
-	 * @author wangjiannan
-	 * @date 2017年12月29日 上午10:23:06
+	 * 部门资源树
+	 *
 	 * @return
 	 */
-	@PostMapping("/tree")
+	@PostMapping(value = "/tree")
 	@ResponseBody
 	public Object tree() {
-		return roleService.selectTree();
+		return organizationService.selectTree();
 	}
+
 }

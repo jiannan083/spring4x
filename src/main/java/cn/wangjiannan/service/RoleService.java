@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.service.IService;
 import cn.wangjiannan.model.Role;
 
 public interface RoleService extends IService<Role> {
+	Object selectTree();
 
 	Map<String, Set<String>> selectResourceMapByUserId(Long userId);
 

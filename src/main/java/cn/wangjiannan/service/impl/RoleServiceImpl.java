@@ -1,5 +1,6 @@
 package cn.wangjiannan.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -9,8 +10,10 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 
+import cn.wangjiannan.common.result.Tree;
 import cn.wangjiannan.common.util.StringUtils;
 import cn.wangjiannan.mapper.RoleMapper;
 import cn.wangjiannan.mapper.UserRoleMapper;
@@ -26,6 +29,26 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
 	private UserRoleMapper userRoleMapper;
 	// @Autowired
 	// private RoleResourceMapper roleResourceMapper;
+
+	public List<Role> selectAll() {
+		EntityWrapper<Role> wrapper = new EntityWrapper<Role>();
+		wrapper.orderBy("seq");
+		return roleMapper.selectList(wrapper);
+	}
+
+	@Override
+	public Object selectTree() {
+		List<Tree> trees = new ArrayList<Tree>();
+		List<Role> roles = this.selectAll();
+		for (Role role : roles) {
+			Tree tree = new Tree();
+			tree.setId(role.getId());
+			tree.setText(role.getName());
+
+			trees.add(tree);
+		}
+		return trees;
+	}
 
 	@Override
 	public Map<String, Set<String>> selectResourceMapByUserId(Long userId) {

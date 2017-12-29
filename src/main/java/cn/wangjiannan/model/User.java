@@ -5,6 +5,11 @@ package cn.wangjiannan.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  *
  * 用户
@@ -18,15 +23,19 @@ public class User implements Serializable {
 	private Long id;
 
 	/** 登陆名 */
+	@NotBlank
+	@Length(min = 4, max = 64)
 	private String loginName;
 
 	/** 用户名 */
 	private String name;
 
 	/** 密码 */
+	@JsonIgnore
 	private String password;
 
 	/** 密码加密盐 */
+	@JsonIgnore
 	private String salt;
 
 	/** 性别 */

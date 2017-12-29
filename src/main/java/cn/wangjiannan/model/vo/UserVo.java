@@ -1,13 +1,7 @@
 package cn.wangjiannan.model.vo;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotBlank;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import cn.wangjiannan.model.Role;
 import cn.wangjiannan.model.User;
@@ -18,35 +12,8 @@ import cn.wangjiannan.model.User;
  * @author wangjiannan
  * @date 2017年12月18日 下午1:34:38
  */
-public class UserVo implements Serializable {
+public class UserVo extends User {
 	private static final long serialVersionUID = 1L;
-
-	private Long id;
-
-	@NotBlank
-	@Length(min = 4, max = 64)
-	private String loginName;
-
-	private String name;
-
-	@JsonIgnore
-	private String password;
-	@JsonIgnore
-	private String salt; // 密码加密盐
-
-	private Integer sex;
-
-	private Integer age;
-
-	private Integer userType;
-
-	private Integer status;
-
-	private Integer organizationId;
-
-	private Date createTime;
-
-	private String phone;
 
 	private List<Role> rolesList;
 
@@ -55,103 +22,8 @@ public class UserVo implements Serializable {
 	private String roleIds;
 
 	private Date createdateStart;
+
 	private Date createdateEnd;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getLoginName() {
-		return loginName;
-	}
-
-	public void setLoginName(String loginName) {
-		this.loginName = loginName == null ? null : loginName.trim();
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name == null ? null : name.trim();
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password == null ? null : password.trim();
-	}
-
-	public String getSalt() {
-		return salt;
-	}
-
-	public void setSalt(String salt) {
-		this.salt = salt;
-	}
-
-	public Integer getSex() {
-		return sex;
-	}
-
-	public void setSex(Integer sex) {
-		this.sex = sex;
-	}
-
-	public Integer getAge() {
-		return age;
-	}
-
-	public void setAge(Integer age) {
-		this.age = age;
-	}
-
-	public Integer getUserType() {
-		return userType;
-	}
-
-	public void setUserType(Integer userType) {
-		this.userType = userType;
-	}
-
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-
-	public Integer getOrganizationId() {
-		return organizationId;
-	}
-
-	public void setOrganizationId(Integer organizationId) {
-		this.organizationId = organizationId;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone == null ? null : phone.trim();
-	}
 
 	public List<Role> getRolesList() {
 		return rolesList;
@@ -193,22 +65,59 @@ public class UserVo implements Serializable {
 		this.createdateEnd = createdateEnd;
 	}
 
-	/**
-	 * 比较vo和数据库中的用户是否同一个user，采用id比较
-	 * 
-	 * @param user
-	 *            用户
-	 * @return 是否同一个人
-	 */
-	public boolean equalsUser(User user) {
-		if (user == null) {
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((createdateEnd == null) ? 0 : createdateEnd.hashCode());
+		result = prime * result + ((createdateStart == null) ? 0 : createdateStart.hashCode());
+		result = prime * result + ((organizationName == null) ? 0 : organizationName.hashCode());
+		result = prime * result + ((roleIds == null) ? 0 : roleIds.hashCode());
+		result = prime * result + ((rolesList == null) ? 0 : rolesList.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
 			return false;
-		}
-		Long userId = user.getId();
-		if (id == null || userId == null) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
-		return id.equals(userId);
+		UserVo other = (UserVo) obj;
+		if (createdateEnd == null) {
+			if (other.createdateEnd != null)
+				return false;
+		} else if (!createdateEnd.equals(other.createdateEnd))
+			return false;
+		if (createdateStart == null) {
+			if (other.createdateStart != null)
+				return false;
+		} else if (!createdateStart.equals(other.createdateStart))
+			return false;
+		if (organizationName == null) {
+			if (other.organizationName != null)
+				return false;
+		} else if (!organizationName.equals(other.organizationName))
+			return false;
+		if (roleIds == null) {
+			if (other.roleIds != null)
+				return false;
+		} else if (!roleIds.equals(other.roleIds))
+			return false;
+		if (rolesList == null) {
+			if (other.rolesList != null)
+				return false;
+		} else if (!rolesList.equals(other.rolesList))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "UserVo [rolesList=" + rolesList + ", organizationName=" + organizationName + ", roleIds=" + roleIds + ", createdateStart=" + createdateStart
+				+ ", createdateEnd=" + createdateEnd + "]";
 	}
 
 }

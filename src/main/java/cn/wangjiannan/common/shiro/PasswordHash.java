@@ -3,6 +3,8 @@ package cn.wangjiannan.common.shiro;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
+import cn.wangjiannan.common.util.DigestUtils;
+
 /**
  * shiro密码加密配置
  * 
@@ -34,7 +36,7 @@ public class PasswordHash implements InitializingBean {
 		Assert.hasLength(algorithmName, "algorithmName mast be MD5、SHA-1、SHA-256、SHA-384、SHA-512");
 	}
 
-	// public String toHex(Object source, Object salt) {
-	// return DigestUtils.hashByShiro(algorithmName, source, salt, hashIterations);
-	// }
+	public String toHex(Object source, Object salt) {
+		return DigestUtils.hashByShiro(algorithmName, source, salt, hashIterations);
+	}
 }

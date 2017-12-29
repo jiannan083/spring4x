@@ -41,12 +41,40 @@
         ORDER BY seq
     </select>
     
-    <select id="selectUserPage" resultType="cn.wangjiannan.model.User">
+    <select id="selectUserPage" resultType="Map">
         SELECT 
-        id id,
-        name name,
-        password password
-        FROM user
+        t.id, 
+        t.login_name loginName, 
+        t.name, 
+        t.phone, 
+        t.password, 
+        t.sex, 
+        t.age, 
+        t.create_time createTime, 
+        t.user_type userType, 
+        t.status, 
+        t.organization_id organizationId,  
+        s.name organizationName, 
+        group_concat(o.name) rolesList
+        FROM user t
+        LEFT JOIN user_role r ON t.id = r.user_id
+        LEFT JOIN role o ON r.role_id = o.id
+        LEFT JOIN organization s ON s.id = t.organization_id
+        <where>
+            <if test=" name != null and name != '' ">
+                t.name = #{name}
+            </if>
+            <if test=" organizationId != null ">
+                t.organization_id = #{organizationId}
+            </if>
+            <if test=" startTime != null ">
+                <![CDATA[ and t.create_time >= #{startTime} ]]>
+            </if>
+            <if test=" endTime != null ">
+                <![CDATA[ and t.create_time <= #{endTime} ]]>
+            </if>
+        </where>
+        GROUP BY t.id
     </select>
 
 </mapper>

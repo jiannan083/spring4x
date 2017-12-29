@@ -10,6 +10,6 @@ import cn.wangjiannan.model.User;
 
 public interface UserMapper extends BaseMapper<User> {
 
-	List<User> selectUserPage(Pagination page, Map<String, Object> params);
+	List<Map<String, Object>> selectUserPage(Pagination page, Map<String, Object> params);
 
 }
