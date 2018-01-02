@@ -31,7 +31,7 @@ public class User implements Serializable {
 	private String name;
 
 	/** 密码 */
-	// @JsonIgnore
+	@JsonIgnore
 	@NotBlank(message = "{user.password.null}")
 	private String password;
 
