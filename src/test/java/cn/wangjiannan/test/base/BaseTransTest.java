@@ -26,7 +26,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @date 2017年12月18日 下午10:21:03
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:applicationContext.xml", "classpath:applicationContext-springMVC.xml" })
+@ContextConfiguration(locations = { "classpath:applicationContext.xml", "classpath:spring-mvc.xml" })
 public abstract class BaseTransTest extends AbstractTransactionalJUnit4SpringContextTests {
 
 }
