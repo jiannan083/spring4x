@@ -47,7 +47,7 @@
                 <value>classpath:validationMessageSource</value>
             </list>
         </property>
-        <!-- <property name="useCodeAsDefaultMessage" value="false"/> -->
+        <property name="useCodeAsDefaultMessage" value="false"/>
         <!-- 资源文件编码格式 -->
         <property name="defaultEncoding" value="UTF-8"/>
         <!-- 对资源文件内容缓存时间，单位秒 -->
