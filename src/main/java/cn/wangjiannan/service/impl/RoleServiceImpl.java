@@ -13,11 +13,11 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 
-import cn.wangjiannan.common.result.Tree;
 import cn.wangjiannan.common.util.StringUtils;
 import cn.wangjiannan.mapper.RoleMapper;
 import cn.wangjiannan.mapper.UserRoleMapper;
 import cn.wangjiannan.model.Role;
+import cn.wangjiannan.model.vo.TreeVo;
 import cn.wangjiannan.service.RoleService;
 
 @Service
@@ -38,10 +38,10 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
 
 	@Override
 	public Object selectTree() {
-		List<Tree> trees = new ArrayList<Tree>();
+		List<TreeVo> trees = new ArrayList<TreeVo>();
 		List<Role> roles = this.selectAll();
 		for (Role role : roles) {
-			Tree tree = new Tree();
+			TreeVo tree = new TreeVo();
 			tree.setId(role.getId());
 			tree.setText(role.getName());
 

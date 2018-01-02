@@ -4,11 +4,11 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.service.IService;
 
-import cn.wangjiannan.common.result.Tree;
 import cn.wangjiannan.model.Organization;
+import cn.wangjiannan.model.vo.TreeVo;
 
 public interface OrganizationService extends IService<Organization> {
-	List<Tree> selectTree();
+	List<TreeVo> selectTree();
 
 	List<Organization> selectTreeGrid();
 }

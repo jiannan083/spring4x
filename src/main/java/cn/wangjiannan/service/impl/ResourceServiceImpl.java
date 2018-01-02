@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 
-import cn.wangjiannan.common.result.Tree;
 import cn.wangjiannan.common.shiro.ShiroUser;
 import cn.wangjiannan.mapper.ResourceMapper;
 import cn.wangjiannan.mapper.RoleMapper;
 import cn.wangjiannan.mapper.UserRoleMapper;
 import cn.wangjiannan.model.Resource;
+import cn.wangjiannan.model.vo.TreeVo;
 import cn.wangjiannan.service.ResourceService;
 
 @Service
@@ -30,8 +30,8 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
 	private RoleMapper roleMapper;
 
 	@Override
-	public List<Tree> selectTree(ShiroUser shiroUser) {
-		List<Tree> trees = new ArrayList<Tree>();
+	public List<TreeVo> selectTree(ShiroUser shiroUser) {
+		List<TreeVo> trees = new ArrayList<TreeVo>();
 		// shiro中缓存的用户角色
 		Set<String> roles = shiroUser.getRoles();
 		if (roles == null) {
@@ -44,7 +44,7 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
 				return trees;
 			}
 			for (Resource resource : resourceList) {
-				Tree tree = new Tree();
+				TreeVo tree = new TreeVo();
 				tree.setId(resource.getId());
 				tree.setPid(resource.getPid());
 				tree.setText(resource.getName());
@@ -66,7 +66,7 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
 			return trees;
 		}
 		for (Resource resource : resourceLists) {
-			Tree tree = new Tree();
+			TreeVo tree = new TreeVo();
 			tree.setId(resource.getId());
 			tree.setPid(resource.getPid());
 			tree.setText(resource.getName());

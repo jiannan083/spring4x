@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 
-import cn.wangjiannan.common.result.Tree;
 import cn.wangjiannan.mapper.OrganizationMapper;
 import cn.wangjiannan.model.Organization;
+import cn.wangjiannan.model.vo.TreeVo;
 import cn.wangjiannan.service.OrganizationService;
 
 @Service
@@ -20,13 +20,13 @@ public class OrganizationServiceImpl extends ServiceImpl<OrganizationMapper, Org
 	private OrganizationMapper organizationMapper;
 
 	@Override
-	public List<Tree> selectTree() {
+	public List<TreeVo> selectTree() {
 		List<Organization> organizationList = selectTreeGrid();
 
-		List<Tree> trees = new ArrayList<Tree>();
+		List<TreeVo> trees = new ArrayList<TreeVo>();
 		if (organizationList != null) {
 			for (Organization organization : organizationList) {
-				Tree tree = new Tree();
+				TreeVo tree = new TreeVo();
 				tree.setId(organization.getId());
 				tree.setText(organization.getName());
 				tree.setIconCls(organization.getIcon());
