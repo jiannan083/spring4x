@@ -23,15 +23,16 @@ public class User implements Serializable {
 	private Long id;
 
 	/** 登陆名 */
-	@NotBlank
-	@Length(min = 4, max = 64)
+	@NotBlank(message = "{user.loginName.null}")
+	@Length(min = 4, max = 64, message = "{user.loginName.length.illegal}")
 	private String loginName;
 
 	/** 用户名 */
 	private String name;
 
 	/** 密码 */
-	@JsonIgnore
+	// @JsonIgnore
+	@NotBlank(message = "{user.password.null}")
 	private String password;
 
 	/** 密码加密盐 */

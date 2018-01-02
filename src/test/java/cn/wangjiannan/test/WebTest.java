@@ -62,4 +62,16 @@ public class WebTest extends BaseWebTest {
 			logger.error("----", e);
 		}
 	}
+
+	@Test
+	public void testValidated() {
+		try {
+			mockMvc.perform(MockMvcRequestBuilders.post("/test/testValidated").param("loginName", "王j"))//
+					.andDo(MockMvcResultHandlers.print())//
+					.andReturn();//
+		} catch (Exception e) {
+			logger.error("----", e);
+		}
+	}
+
 }
