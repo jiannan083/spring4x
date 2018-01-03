@@ -13,8 +13,8 @@
     http://www.springframework.org/schema/aop
     http://www.springframework.org/schema/aop/spring-aop.xsd">
     
-    <!-- <aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true"/> -->
-	<context:component-scan base-package="cn.wangjiannan.controller" />
+    <aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true"/>
+	<context:component-scan base-package="cn.wangjiannan.controller;cn.wangjiannan.common.scan" />
     <!-- 支持@RequestMapping -->
 	<!-- 支持@ResponseBody;将数据自动转成JSON格式字符串给客户端JavaScript返回 -->    
 	<mvc:annotation-driven>
