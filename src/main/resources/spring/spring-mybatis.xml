@@ -39,7 +39,8 @@
         <property name="removeAbandonedTimeout" value="1800" />
         <!-- 关闭abanded连接时输出错误日志 -->
         <property name="logAbandoned" value="true" />
-        <!-- 监控数据库,配置监控统计拦截的filters -->
+        <!-- 监控数据库,配置监控统计拦截的filters，去掉后监控界面sql无法统计 -->
+        <property name="filters" value="stat" />
         <!-- <property name="filters" value="mergeStat,wall,log4j2" /> -->
     </bean>
 
