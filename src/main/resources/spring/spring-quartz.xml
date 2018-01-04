@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+    
+    <!-- 1.声明任务bean -->
+    <bean id="myJob01" class="cn.wangjiannan.quartz.MyJob01" />
+    <!-- 2.配置任务作业 -->
+    <bean id="myJob01Detail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+	    <property name="targetObject" ref="myJob01" />
+	    <property name="targetMethod" value="execute" />
+	    <!-- 防止并发 -->
+		<property name="concurrent" value="false" />
+	</bean>
+	<!-- 3.配置触发器 -->
+	<bean id="myJob01Trigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="myJob01Detail" />
+		<property name="cronExpression">
+			<value>*/5 * * * * ?</value>
+		</property>
+	</bean>
+	<!-- 4.添加其他的任务,重复步骤1-3 -->
+	<!-- 5.配置调度器 -->
+	<bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<!-- 装载定时器 -->
+			<list>
+				<ref bean="myJob01Trigger" />
+			</list>
+		</property>
+		<!-- autoStartup默认为true -->
+		<!-- <property name="autoStartup">
+			<value>true</value>
+		</property> -->
+		<!-- <property name="configLocation" value="classpath:quartz.properties" /> -->
+	</bean>
+</beans>
