@@ -1,13 +1,11 @@
 package cn.wangjiannan.manager.impl;
 
-import javax.annotation.Resource;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Component;
@@ -18,11 +16,9 @@ import cn.wangjiannan.manager.ActiveMQProducerManager;
 public class ActiveMQProducerManagerImpl implements ActiveMQProducerManager {
 
 	@Autowired
-	@Qualifier("queueTemplate")
 	private JmsTemplate queueTemplate;
 
-	@Resource(name = "topicTemplate")
-	// @Autowired
+	@Autowired
 	private JmsTemplate topicTemplate;
 
 	@Override

@@ -7,7 +7,7 @@
        http://www.springframework.org/schema/jms 
        http://www.springframework.org/schema/jms/spring-jms.xsd">
        
-	<!-- 1: ActiveMQ 连接工厂,真正可以产生Connection的ConnectionFactory，由对应的 JMS服务厂商提供 -->
+	<!-- 1.ActiveMQ 连接工厂,真正可以产生Connection的ConnectionFactory，由对应的 JMS服务厂商提供 -->
 	<bean id="targetConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
 		<property name="brokerURL" value="${jms.broker_url}" />
 		<!-- <property name="userName" value="${jms.userName}" />
@@ -16,34 +16,30 @@
 		<property name="useAsyncSend" value="true" />
 	</bean>
 	
-	<!-- 2: Spring Caching 连接工厂,只是Spring用于管理ConnectionFactory的 -->
+	<!-- 2.Spring Caching 连接工厂,只是Spring用于管理ConnectionFactory的 -->
 	<bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
 		<property name="targetConnectionFactory" ref="targetConnectionFactory" />
 		<!-- Session缓存数量 -->
 		<property name="sessionCacheSize" value="10" />
 	</bean>
 	
-	<!-- Spring JmsTemplate 的消息生产者 start-->
-	<!-- 3.1: 定义JmsTemplate的Queue类型 -->
+	<!-- 3.定义消息生产者 start-->
+	<!-- 3.1.Queue类型 -->
 	<bean id="queueTemplate" class="org.springframework.jms.core.JmsTemplate">
 		<property name="connectionFactory" ref="connectionFactory" />
-		<!-- 非pub/sub模型（发布/订阅），即队列模式 -->
-        <property name="pubSubDomain" value="false" />
         <!-- 定义目的地消息队列 -->
 		<property name="defaultDestination" ref="queueDestination" />
 	</bean>
 	<bean id="queueDestination" class="org.apache.activemq.command.ActiveMQQueue">
 		<constructor-arg index="0" value="queue_test" />
 	</bean>
-	<!-- 3.2定义JmsTemplate的Topic类型 -->
+	<!-- 3.2.Topic类型 -->
     <bean id="topicTemplate" class="org.springframework.jms.core.JmsTemplate">
          <property name="connectionFactory" ref="connectionFactory" />
-        <!-- pub/sub模型（发布/订阅） -->
-        <property name="pubSubDomain" value="true" />
         <!-- 定义目的地消息队列 -->
         <property name="defaultDestination" ref="topicDestination" />
     </bean>
-    <bean id="topicDestination" class="org.apache.activemq.command.ActiveMQQueue">
+    <bean id="topicDestination" class="org.apache.activemq.command.ActiveMQTopic">
 		<constructor-arg index="0" value="topic_test" />
 	</bean>
     <!--Spring JmsTemplate 的消息生产者 end-->
