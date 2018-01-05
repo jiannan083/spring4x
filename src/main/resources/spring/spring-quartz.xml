@@ -20,7 +20,7 @@
 	<bean id="myJob01Trigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="myJob01Detail" />
 		<property name="cronExpression">
-			<value>*/5 * * * * ?</value>
+			<value>*/59 * * * * ?</value>
 		</property>
 	</bean>
 	<!-- 4.添加其他的任务,重复步骤1-3 -->
