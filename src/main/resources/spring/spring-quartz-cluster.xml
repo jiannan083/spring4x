@@ -13,15 +13,17 @@
     <bean id="myJob01Detail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
 	    <property name="targetObject" ref="myJob01" />
 	    <property name="targetMethod" value="execute" />
-	    <!-- 防止并发 -->
-		<property name="concurrent" value="false" />
+	    <!-- 是否并行,如果一个job的业务处理发费的时间超过了job的启动的间隔时间（repeatInterval)，这个属性非常有用。
+	    	  如果为false，那么，在这种情况下，当前job还在运行，那么下一个job只能延时运行。如果为true，那么job就会并行运行 -->
+		<!-- <property name="concurrent" value="false" /> -->
+		<!-- <property name="durability" value="true" /> -->
+		<!-- 必须设置为 true，当Quartz服务被中止后，再次启动或集群中其他机器接手任务时会尝试恢复执行之前未完成的所有任务 -->
+		<!-- <property name="requestsRecovery" value="true" /> -->
 	</bean>
 	<!-- 3.配置触发器 -->
 	<bean id="myJob01Trigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="myJob01Detail" />
-		<property name="cronExpression">
-			<value>*/59 * * * * ?</value>
-		</property>
+		<property name="cronExpression" value="0 0 1 * * ?" />
 	</bean>
 	<!-- 4.添加其他的任务,重复步骤1-3 -->
 	<!-- 5.配置调度器 -->
@@ -32,10 +34,8 @@
 				<ref bean="myJob01Trigger" />
 			</list>
 		</property>
-		<!-- autoStartup默认为true -->
-		<!-- <property name="autoStartup">
-			<value>true</value>
-		</property> -->
-		<!-- <property name="configLocation" value="classpath:quartz.properties" /> -->
+		<property name="dataSource" ref="dataSource"/>
+		<!-- <property name="applicationContextSchedulerContextKey" value="applicationContextKey" /> -->
+		<property name="configLocation" value="classpath:quartz.properties" />
 	</bean>
 </beans>
