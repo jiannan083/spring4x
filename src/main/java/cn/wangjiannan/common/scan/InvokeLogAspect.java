@@ -3,6 +3,7 @@ package cn.wangjiannan.common.scan;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -30,12 +31,11 @@ public class InvokeLogAspect {
 	 * @author wangjiannan
 	 * @date 2018年1月9日 下午4:18:07
 	 */
-	// @Pointcut("execution(* cn.wangjiannan.manager..*.*(..))")
-	// private void cutInvokeMethod() {
-	// }
+	@Pointcut("execution(* cn.wangjiannan.manager.InvokeBaiduManager.getPositionByLatLng(..))")
+	private void cutInvokeMethod() {
+	}
 
-	// @Around("cutInvokeMethod()")
-	@Around("execution(* cn.wangjiannan.manager..*.*(..))")
+	@Around("cutInvokeMethod()")
 	public void recordInvokeLog(ProceedingJoinPoint point) throws Throwable {
 		System.out.println("-----------------recordInvokeLog-----------------------");
 		String className = point.getTarget().getClass().getName();
