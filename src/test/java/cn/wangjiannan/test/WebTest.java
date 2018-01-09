@@ -74,4 +74,15 @@ public class WebTest extends BaseWebTest {
 		}
 	}
 
+	@Test
+	public void testInvokeBaidu() {
+		try {
+			mockMvc.perform(MockMvcRequestBuilders.post("/test/testInvokeBaidu").param("latLng", "40.1538,116.2933"))//
+					// .andDo(MockMvcResultHandlers.print())//
+					.andReturn();//
+		} catch (Exception e) {
+			logger.error("----", e);
+		}
+	}
+
 }

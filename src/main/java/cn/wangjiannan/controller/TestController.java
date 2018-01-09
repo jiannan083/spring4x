@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.wangjiannan.common.base.BaseController;
 import cn.wangjiannan.manager.ActiveMQProducerManager;
+import cn.wangjiannan.manager.InvokeBaiduManager;
 import cn.wangjiannan.model.vo.UserVo;
 
 /**
@@ -28,6 +29,8 @@ public class TestController extends BaseController {
 	// private UserService userService;
 	@Autowired
 	private ActiveMQProducerManager activeMQProducerManager;
+	@Autowired
+	private InvokeBaiduManager invokeBaiduManager;
 
 	@RequestMapping("/test1")
 	@ResponseBody
@@ -72,6 +75,11 @@ public class TestController extends BaseController {
 	public void testTopic(String message) {
 		activeMQProducerManager.testTopicTemplate(message);
 
+	}
+
+	@RequestMapping("/testInvokeBaidu")
+	public void testInvokeBaidu(String latLng) {
+		invokeBaiduManager.getPositionByLatLng(latLng);
 	}
 
 }
