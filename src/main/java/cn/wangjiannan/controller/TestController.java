@@ -60,7 +60,7 @@ public class TestController extends BaseController {
 			List<ObjectError> allErrors = bindingResult.getAllErrors();
 			for (ObjectError error : allErrors) {
 				System.out.println("我是验证错误:" + error.getDefaultMessage());
-				// return error.getDefaultMessage();
+				return error.getDefaultMessage();
 			}
 		}
 		return null;

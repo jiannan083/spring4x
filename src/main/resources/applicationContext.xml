@@ -12,10 +12,17 @@
 	
     <context:property-placeholder location="classpath:application.properties" ignore-unresolvable="true" />
     
-    <!-- aspectj aop启用CGliB代理,定义在哪个文件，就对哪个文件scan的类生效 -->
+    <!-- 
+    	aspectj aop启用CGliB代理,定义在哪个文件，就对哪个文件scan的类生效.
+     	自动为spring容器中那些配置@aspectJ切面的bean创建代理，织入切面 
+    -->
     <aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true"/>
     
-    <!-- Spring容器中注册非@controller注解的Bean -->
+    <!-- 
+    	  扫描配置的base-package包下的所有使用了@Component注解的类，并且将它们自动注册到容器中，
+    	  同时也扫描@Controller，@Service，@Respository这三个注解，因为他们是继承自@Component.
+    	 Spring容器中注册非@controller注解的Bean. 
+    -->
 	<context:component-scan base-package="cn.wangjiannan">
 	   <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
