@@ -13,8 +13,12 @@
     http://www.springframework.org/schema/aop
     http://www.springframework.org/schema/aop/spring-aop.xsd">
     
+    <!-- aspectj aop启用CGliB代理,定义在哪个文件，就对哪个文件scan的类生效 -->
     <aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true"/>
-	<context:component-scan base-package="cn.wangjiannan.controller;cn.wangjiannan.common.scan" />
+    
+    <!-- 扫描controller -->
+	<context:component-scan base-package="cn.wangjiannan.controller" />
+	
     <!-- 支持@RequestMapping -->
 	<!-- 支持@ResponseBody;将数据自动转成JSON格式字符串给客户端JavaScript返回 -->    
 	<mvc:annotation-driven>

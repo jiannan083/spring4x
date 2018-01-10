@@ -12,11 +12,13 @@
 	
     <context:property-placeholder location="classpath:application.properties" ignore-unresolvable="true" />
     
-    <!-- aspectj aop启用CGliB代理 -->
-    <!-- <aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true"/> -->
+    <!-- aspectj aop启用CGliB代理,定义在哪个文件，就对哪个文件scan的类生效 -->
+    <aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true"/>
     
-    <!-- 扫描service -->
-    <context:component-scan base-package="cn.wangjiannan.service;cn.wangjiannan.manager"/>
+    <!-- Spring容器中注册非@controller注解的Bean -->
+	<context:component-scan base-package="cn.wangjiannan">
+	   <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
     
 	<import resource="classpath:spring/spring-mybatis.xml"/>
     <!-- <import resource="classpath:spring/spring-ehcache.xml"/> -->
