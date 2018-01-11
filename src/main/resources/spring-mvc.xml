@@ -15,7 +15,6 @@
     
     <!-- aspectj aop启用CGliB代理,定义在哪个文件，就对哪个文件scan的类生效 -->
     <aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true"/>
-    
     <!-- 扫描controller -->
 	<context:component-scan base-package="cn.wangjiannan.controller" />
 	

@@ -20,7 +20,6 @@
      	如果目标类没有声明接口，则spring将自动使用CGLib动态代理。
     -->
     <aop:aspectj-autoproxy expose-proxy="true" proxy-target-class="true"/>
-    
     <!-- 
     	  扫描配置的base-package包下的所有使用了@Component注解的类，并且将它们自动注册到容器中，
     	  同时也扫描@Controller，@Service，@Respository这三个注解，因为他们是继承自@Component,
