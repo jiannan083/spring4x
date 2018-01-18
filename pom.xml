@@ -6,6 +6,15 @@
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring4x</name>
+	
+	<!-- 使用aliyun镜像 -->
+	<repositories>
+		<repository>
+			<id>aliyun</id>
+			<name>aliyun</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public</url>
+		</repository>
+	</repositories>
 
 	<properties>
 		<project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
@@ -227,7 +236,7 @@
 				<configuration>
 					<source>${jdk.version}</source>
 					<target>${jdk.version}</target>
-					<encoding>UTF8</encoding>
+					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -238,12 +247,4 @@
 		</plugins>
 	</build>
 
-	<!-- 使用aliyun镜像 -->
-	<repositories>
-		<repository>
-			<id>aliyun</id>
-			<name>aliyun</name>
-			<url>http://maven.aliyun.com/nexus/content/groups/public</url>
-		</repository>
-	</repositories>
 </project>
